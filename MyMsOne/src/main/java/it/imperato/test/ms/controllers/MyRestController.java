@@ -4,6 +4,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import it.imperato.test.ms.exceptions.UserNotLoggedException;
 import it.imperato.test.ms.services.MyAuthService;
 import it.imperato.test.ms.services.MyProcessService;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -37,12 +38,8 @@ public class MyRestController {
 
     /*  test con Postman (modalità x-www-form-urlencoded) */
 
-    /**
-     * inner class used as the Object tied into the Body of the ResponseEntity.
-     * It's important to have this Object because it is composed of server response code and response object.
-     * Then, JACKSON LIBRARY automatically convert this JsonResponseBody Object into a JSON response.
-     */
-    //@AllArgsConstructor
+    // Jackson library converte automaticamente il JsonResponseBody Object in una JSON response.
+    @AllArgsConstructor
     public class JsonResponseBody implements Serializable {
 
         @Getter @Setter
@@ -51,17 +48,12 @@ public class MyRestController {
         @Getter @Setter
         private Object response;
 
-        // intellij idea compilation
-        public JsonResponseBody(int server, Object response) {
-            this.server = server;
-            this.response = response;
-        }
     }
 
-
     @RequestMapping("/endpointone/{myVar}")
-    public ResponseEntity<JsonResponseBody> fetchAllOperationsPerAccount(
-            HttpServletRequest request, @PathVariable(name = "myVar") String myVar){
+    public ResponseEntity<JsonResponseBody> endpointOne(
+            HttpServletRequest request, @PathVariable(name = "myVar") String myVar) {
+
         // Request -> fetch JWT -> check validity -> Do some process [...]
         try {
             authService.verifyJwtAndDoSomeOperation(request);
