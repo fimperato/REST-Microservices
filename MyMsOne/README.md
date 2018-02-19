@@ -1,7 +1,9 @@
-## Microservices REST: 
+## Microservices REST
 
-  Spring Boot 2
-  Spring JPA
-  JWT
-  Maven
+#### Microservice One
+
+* Spring Boot 2
+* Spring JPA
+* JWT
+* Maven
   
