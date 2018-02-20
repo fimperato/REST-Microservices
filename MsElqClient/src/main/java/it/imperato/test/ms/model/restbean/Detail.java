@@ -9,8 +9,8 @@ import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "key",
-        "value"
+    "key",
+    "value"
 })
 public class Detail {
 

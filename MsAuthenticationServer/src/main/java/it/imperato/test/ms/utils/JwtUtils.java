@@ -74,10 +74,10 @@ public class JwtUtils {
     public static String getJwtFromHttpRequest(HttpServletRequest request){
         String jwt = null;
         if(request.getHeader("jwt") != null) {
-            jwt = request.getHeader("jwt"); // token present in header
+            jwt = request.getHeader("jwt");     //token present in header
         }
         else if(request.getCookies() != null) {
-            Cookie[] cookies = request.getCookies(); // token present in cookie
+            Cookie[] cookies = request.getCookies();   //token present in cookie
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("jwt")) {
                     jwt = cookie.getValue();

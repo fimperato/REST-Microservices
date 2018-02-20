@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "MS2018_msOne",
+			"name": "MS18_msOne",
 			"description": "",
 			"item": [
 				{
@@ -62,7 +62,7 @@
 							},
 							{
 								"key": "jwt",
-								"value": ""
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpbyIsImV4cCI6MTUxOTA1MTExNCwibmFtZSI6Im1hcmlvIn0.uAhd9Y5efpeKUeWdf4zuQoMl5z0uga3JXrEbTDNubG0"
 							}
 						],
 						"body": {},
@@ -84,8 +84,16 @@
 					"name": "/test/testCompany",
 					"request": {
 						"method": "POST",
-						"header": [],
-						"body": {},
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
 						"url": {
 							"raw": "localhost:8084/test/testCompany",
 							"host": [
@@ -98,6 +106,185 @@
 							]
 						},
 						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS18_msElqServer",
+			"description": "",
+			"item": [
+				{
+					"name": "/api/REST/1.0/data/activities/contact/12",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "http://localhost:8087/jwt/loginUserMock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"jwt",
+								"loginUserMock"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Activities WithJwt authentication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "http://localhost:8085/api/JWT/REST/1.0/data/activities/contact/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"JWT",
+								"REST",
+								"1.0",
+								"data",
+								"activities",
+								"contact",
+								"0"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS18_msElqClient",
+			"description": "",
+			"item": [
+				{
+					"name": "/activity/getActivities/",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/activity/getActivities/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"activity",
+								"getActivities",
+								"12"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS18_msAuthServer",
+			"description": "",
+			"item": [
+				{
+					"name": "/jwt/loginUserMock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"25\",\n\t\"username\": \"mario.rossi\",\n\t\"password\": \"miapassword\",\n\t\"permessi\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8087/jwt/loginUserMock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"jwt",
+								"loginUserMock"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/jwt/loginUserMock - JWT valido in header",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNSIsImV4cCI6MTUxOTE0NjExNywibmFtZSI6Im1pb3VzZXJuYW1lIn0.nilUrl17LKy9Are3n_rjd9bPHgcGzxK-tMVY5CkZzwg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"25\",\n\t\"username\": \"mario.rossi\",\n\t\"password\": \"miapassword\",\n\t\"permessi\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8087/jwt/loginUserMock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"jwt",
+								"loginUserMock"
+							]
+						},
+						"description": "da lanciare dopo aver prelevato il jwt valido da /jwt/loginUserMock REST service"
 					},
 					"response": []
 				}

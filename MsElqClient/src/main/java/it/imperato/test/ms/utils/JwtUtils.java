@@ -2,7 +2,6 @@ package it.imperato.test.ms.utils;
 
 import io.jsonwebtoken.*;
 import org.apache.tomcat.util.bcel.classfile.ConstantDouble;
-import org.springframework.http.HttpHeaders;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -74,29 +73,15 @@ public class JwtUtils {
     public static String getJwtFromHttpRequest(HttpServletRequest request){
         String jwt = null;
         if(request.getHeader("jwt") != null) {
-            jwt = request.getHeader("jwt"); // token present in header
+            jwt = request.getHeader("jwt");     //token present in header
         }
         else if(request.getCookies() != null) {
-            Cookie[] cookies = request.getCookies(); // token present in cookie
+            Cookie[] cookies = request.getCookies();   //token present in cookie
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("jwt")) {
                     jwt = cookie.getValue();
                 }
             }
-        }
-        return jwt;
-    }
-
-    /**
-     * This method extracts the jwt from the HttpHeaders
-     *
-     * @param headers
-     * @return jwt
-     */
-    public static String getJwtFromHttpHeaders(HttpHeaders headers){
-        String jwt = null;
-        if(headers.get("jwt") != null) {
-            jwt = headers.get("jwt").get(0); // token present in HttpHeaders
         }
         return jwt;
     }
