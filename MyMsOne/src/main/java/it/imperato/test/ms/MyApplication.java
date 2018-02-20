@@ -1,5 +1,6 @@
 package it.imperato.test.ms;
 
+import it.imperato.test.ms.utils.ConstantsApp;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,9 @@ public class MyApplication {
     }
 
     @Bean
-    public BasicTextEncryptor textEncryptor(){
+    public BasicTextEncryptor myTextEncryptor(){
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword("my_secret_encriptionKey_123");
+        textEncryptor.setPassword(ConstantsApp.SIGNIN_KEY);
         return textEncryptor;
     }
 

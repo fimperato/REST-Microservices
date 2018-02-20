@@ -18,14 +18,18 @@ public class EncryptionUtils {
     this method provides an encryption of the String passed in input
     */
     public String encrypt(String data){
+
         return textEncryptor.encrypt(data);
+
     }
 
     /*
     this method provides a decryption of the String passed in input
     */
     public String decrypt(String encriptedData){
+
         return textEncryptor.decrypt(encriptedData);
+
     }
 
 }

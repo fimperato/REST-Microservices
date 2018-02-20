@@ -1,6 +1,7 @@
 package it.imperato.test.ms.utils;
 
 import io.jsonwebtoken.*;
+import org.apache.tomcat.util.bcel.classfile.ConstantDouble;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,10 +37,10 @@ public class JwtUtils {
      * @throws UnsupportedEncodingException
      */
     public static Map<String, Object> jwt2Map(String jwt) throws
-            UnsupportedEncodingException, ExpiredJwtException{
+            UnsupportedEncodingException, ExpiredJwtException {
 
         Jws<Claims> claim = Jwts.parser()
-                .setSigningKey("myPersonalSecretKey12345".getBytes("UTF-8"))
+                .setSigningKey(ConstantsApp.SIGNIN_KEY.getBytes("UTF-8"))
                 .parseClaimsJws(jwt);
 
         String name = claim.getBody().get("name", String.class);
@@ -71,9 +72,10 @@ public class JwtUtils {
      */
     public static String getJwtFromHttpRequest(HttpServletRequest request){
         String jwt = null;
-        if(request.getHeader("jwt") != null){
+        if(request.getHeader("jwt") != null) {
             jwt = request.getHeader("jwt");     //token present in header
-        }else if(request.getCookies() != null){
+        }
+        else if(request.getCookies() != null) {
             Cookie[] cookies = request.getCookies();   //token present in cookie
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("jwt")) {
