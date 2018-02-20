@@ -1,0 +1,167 @@
+{
+	"info": {
+		"name": "MS_REST_project",
+		"_postman_id": "9d3b5c5d-527d-7f4d-56fb-f8f9083c98cc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MS2018_msOne",
+			"description": "",
+			"item": [
+				{
+					"name": "/authUserTest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userId",
+									"value": "mario",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "userPsw",
+									"value": "mypass",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8084/authUserTest",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"authUserTest"
+							]
+						},
+						"description": "spring-oauth2-luglio2016"
+					},
+					"response": []
+				},
+				{
+					"name": "/jwtByClientTest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "jwt",
+								"value": ""
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:8084/jwtByClientTest",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"jwtByClientTest"
+							]
+						},
+						"description": "spring-oauth2-luglio2016"
+					},
+					"response": []
+				},
+				{
+					"name": "/test/testCompany",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8084/test/testCompany",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"test",
+								"testCompany"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "localhost:9000/hascode/oauth/token?grant_type=password&client_id=foo&client_secret=abc123&redirect_uri=http://www.hascode.com&username=bar&password=barsecret",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Zm9vOmZvb3NlY3JldA=="
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"password\":\"pepe\",\"username\":\"pepe\",\"grant_type\":\"password\",\"scope\":\"read+write\"}"
+				},
+				"url": {
+					"raw": "localhost:9000/hascode/oauth/token?grant_type=password&client_id=foo&client_secret=abc123&redirect_uri=http://www.hascode.com&username=bar&password=barsecret",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"hascode",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "client_id",
+							"value": "foo"
+						},
+						{
+							"key": "client_secret",
+							"value": "abc123"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://www.hascode.com"
+						},
+						{
+							"key": "username",
+							"value": "bar"
+						},
+						{
+							"key": "password",
+							"value": "barsecret"
+						}
+					]
+				},
+				"description": "spring-oauth2-luglio2016"
+			},
+			"response": []
+		}
+	]
+}
