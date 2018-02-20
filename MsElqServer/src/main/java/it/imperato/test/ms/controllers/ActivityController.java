@@ -1,31 +1,18 @@
 package it.imperato.test.ms.controllers;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import it.imperato.test.ms.exceptions.UserNotLoggedException;
-import it.imperato.test.ms.model.entities.Activity;
-import it.imperato.test.ms.model.pojo.Company;
-import it.imperato.test.ms.model.pojo.UserInMem;
-import it.imperato.test.ms.model.restbean.MyResponseBody;
-import it.imperato.test.ms.services.MyAuthService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import it.imperato.test.ms.model.restbean.Activity;
+import it.imperato.test.ms.model.restbean.Contact;
 import lombok.extern.java.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -45,23 +32,38 @@ public class ActivityController {
      * @return
      */
     @RequestMapping(value = "/activities/contact/{contactId}", method = POST)
-    public ResponseEntity<MyResponseBody> testCompany(
-            @RequestBody Activity testBody, @PathVariable(name = "contactId") String contactId){
+    public ResponseEntity<List<Activity>> testCompany(
+            @RequestBody Contact contactBody, @PathVariable(name = "contactId") String contactId){
         try {
             if(contactId != null) {
-                List<Activity> activities = this.getMockActivities();
-                return ResponseEntity.status(HttpStatus.OK).header("header-info", "NO-INFO").body(
-                        new MyResponseBody(HttpStatus.OK.value(),
-                                myCompanyOne.getName()+" / "+myBrlCompany.getName(),
-                                "INFO"));
+                List<Activity> activities = this.getMockActivities(contactId);
+                return ResponseEntity.status(HttpStatus.OK).header("header-info", "NO-INFO")
+                        .body(activities);
             }
         }
         catch(Exception ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new MyResponseBody( HttpStatus.BAD_REQUEST.value(), "Error" + ex.toString(), "ERROR" ));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new MyResponseBody( HttpStatus.BAD_REQUEST.value(), "Error", "ERROR" ));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    protected List<Activity> getMockActivities(String contactId) {
+        List<Activity> activities = new ArrayList<>();
+
+        Activity a = new Activity();
+        Date d = new Date();
+        a.setAssetType("Activity");
+        a.setContact(contactId);
+        a.setActivityType("Email");
+        a.setActivityDate(String.valueOf(d.getTime()));
+        activities.add(a);
+
+        d = new Date();
+        a.setActivityType("Landing Page");
+        a.setContact(contactId);
+        a.setActivityDate(String.valueOf(d.getTime()));
+        activities.add(a);
+
+        return activities;
+    }
 }
