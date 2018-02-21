@@ -1,9 +1,11 @@
 package it.imperato.test.ms.controllers;
 
-import it.imperato.test.ms.model.restbean.Activity;
-import it.imperato.test.ms.model.restbean.ActivityRequestBody;
-import it.imperato.test.ms.model.restbean.Contact;
+import it.imperato.test.ms.model.entities.Activity;
+import it.imperato.test.ms.model.restbean.ActivityRBean;
+import it.imperato.test.ms.model.restbean.ActivityBodyRBean;
+import it.imperato.test.ms.services.ActivityService;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,25 +24,27 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/api/REST/1.0/data")
 public class ActivityController {
 
+    @Autowired
+    ActivityService activityService;
+
     @RequestMapping("/activityController")
     public String activityControllerTest(){
         return "ActivityController ready.";
     }
 
     /**
-     * http://localhost:8085/api/REST/1.0/data/activities/contact/{contactId}
-     * (Simulazione in POST invece che in GET)
+     * http://localhost:8085/api/REST/1.0/data/mock/activities/contact/{contactId}
      *
      * @return
      */
-    @RequestMapping(value = "/activities/contact/{contactId}", method = POST)
-    public ResponseEntity<List<Activity>> extractActivities(
-            @RequestBody ActivityRequestBody reqBody, @PathVariable(name = "contactId", required = false) String contactId){
+    @RequestMapping(value = "/mock/activities/contact/{contactId}", method = POST)
+    public ResponseEntity<List<ActivityRBean>> extractActivitiesMock(
+            @RequestBody ActivityBodyRBean reqBody, @PathVariable(name = "contactId", required = false) String contactId){
         try {
             contactId = (contactId==null||"0".equals(contactId))&&(reqBody!=null&&reqBody.getContactId()!=null) ?
                     String.valueOf(reqBody.getContactId()):contactId;
             if(contactId != null) {
-                List<Activity> activities = this.getMockActivities(contactId);
+                List<ActivityRBean> activities = activityService.getMockActivities(contactId);
                 return ResponseEntity.status(HttpStatus.OK).header("header-info", "NO-INFO")
                         .body(activities);
             }
@@ -51,24 +55,28 @@ public class ActivityController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
-    protected List<Activity> getMockActivities(String contactId) {
-        List<Activity> activities = new ArrayList<>();
-
-        Activity a = new Activity();
-        Date d = new Date();
-        a.setAssetType("Email");
-        a.setActivityType("Completed");
-        a.setContact(contactId);
-        a.setActivityDate(String.valueOf(d.getTime()));
-        activities.add(a);
-
-        d = new Date();
-        a.setAssetType("Landing Page");
-        a.setActivityType("Completed");
-        a.setContact(contactId);
-        a.setActivityDate(String.valueOf(d.getTime()));
-        activities.add(a);
-
-        return activities;
+    /**
+     * http://localhost:8085/api/REST/1.0/data/activities/contact/{contactId}
+     * (Simulazione in POST invece che in GET)
+     *
+     * @return
+     */
+    @RequestMapping(value = "/activities/contact/{contactId}", method = POST)
+    public ResponseEntity<List<Activity>> extractActivities(
+            @RequestBody ActivityBodyRBean reqBody, @PathVariable(name = "contactId", required = false) String contactId){
+        try {
+            contactId = (contactId==null||"0".equals(contactId))&&(reqBody!=null&&reqBody.getContactId()!=null) ?
+                    String.valueOf(reqBody.getContactId()):contactId;
+            if(contactId != null) {
+                List<Activity> activities = activityService.findByContact(contactId);
+                return ResponseEntity.status(HttpStatus.OK).header("header-info", "NO-INFO")
+                        .body(activities);
+            }
+        }
+        catch(Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
         "key",
         "value"
 })
-public class Detail {
+public class DetailRBean {
 
     @JsonProperty("key")
     @Getter @Setter

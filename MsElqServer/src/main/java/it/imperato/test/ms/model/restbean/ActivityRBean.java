@@ -18,7 +18,7 @@ import java.util.List;
         "contact",
         "details"
 })
-public class Activity {
+public class ActivityRBean {
 
     @JsonProperty("id")
     @Getter @Setter
@@ -37,6 +37,6 @@ public class Activity {
     private String contact;
     @JsonProperty("details")
     @Getter @Setter
-    private List<Detail> details = null;
+    private List<DetailRBean> details = null;
 
 }

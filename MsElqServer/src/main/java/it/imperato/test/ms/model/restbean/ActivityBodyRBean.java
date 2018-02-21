@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ActivityRequestBody {
+public class ActivityBodyRBean {
 
     @Getter @Setter
     private String name;

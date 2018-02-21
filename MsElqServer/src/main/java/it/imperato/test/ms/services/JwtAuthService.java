@@ -10,12 +10,8 @@ import java.util.Map;
 
 public interface JwtAuthService {
 
-    String createJwt(String subject, String name, String permission, Date datenow)
-            throws UnsupportedEncodingException;
+    Map<String, Object> retrieveInfoByJwt(HttpServletRequest request) throws UserNotLoggedException, UnsupportedEncodingException;
 
-    Map<String, Object> retrieveInfoByJwt(HttpServletRequest request)
-            throws UserNotLoggedException, UnsupportedEncodingException;
-
-    void checkJwt(HttpHeaders headers) throws UserNotLoggedException;
+    void checkJwt(HttpHeaders headers) throws UserNotLoggedException, UnsupportedEncodingException;
 
 }

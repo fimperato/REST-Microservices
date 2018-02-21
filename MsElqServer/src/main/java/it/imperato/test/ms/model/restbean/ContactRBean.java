@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Contact {
+public class ContactRBean {
 
     @Getter @Setter
     private String id;

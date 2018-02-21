@@ -8,10 +8,7 @@ import lombok.extern.java.Log;
 import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -23,11 +20,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/activity")
 public class ActivityController {
 
+    protected static final String CONTACT_ID_TEST = "15";
+
     @Autowired
     RestTemplate restTemplate;
 
     @RequestMapping("/activityController")
-    public String userManagementTest(){
+    public String activityController(){
         return "ActivityController (Client) ready.";
     }
 
@@ -36,13 +35,14 @@ public class ActivityController {
      * https://docs.oracle.com/cloud/latest/marketingcs_gs/OMCAC/op-api-REST-2.0-data-activity-post.html#examples
      * (Simulazione su retrieve invece che su create)
      *
-     * http://localhost:8086/activity/getActivities/12
+     * http://localhost:8086/activity/getActivities/12?isMock=false
      *
      * @return
      */
     @RequestMapping(value = "/getActivities/{contactId}", method = POST)
     public ResponseEntity<List<Activity>> getActivities(
-            @PathVariable(name = "contactId") String contactId){
+            @PathVariable(name = "contactId") String contactId,
+            @RequestParam(name = "isMock", defaultValue = "false") Boolean isMock){
         HttpHeaders reqHeaders = new HttpHeaders();
 
         //reqHeaders.add("Authorization", authorization);
@@ -62,8 +62,9 @@ public class ActivityController {
 
         HttpEntity<ActivityRequestBody> entity = new HttpEntity<ActivityRequestBody>(reqBody, reqHeaders);
         try {
+            String dataUrl = isMock ? ConstantsApp.MOCK_ACTIVITIES_DATA_URL : ConstantsApp.ACTIVITIES_DATA_URL;
             ResponseEntity<Activity[]> response =
-                    restTemplate.exchange(ConstantsApp.BASE_URL + ConstantsApp.ACTIVITIES_DATA_URL + "0",
+                    restTemplate.exchange(ConstantsApp.BASE_URL + dataUrl + String.valueOf(cId),
                             HttpMethod.POST, entity, Activity[].class);
 
             List<Activity> acts = Arrays.asList(response.getBody());
@@ -74,23 +75,4 @@ public class ActivityController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
-    protected List<Activity> getMockActivities(String contactId) {
-        List<Activity> activities = new ArrayList<>();
-
-        Activity a = new Activity();
-        Date d = new Date();
-        a.setAssetType("Activity");
-        a.setContact(contactId);
-        a.setActivityType("Email");
-        a.setActivityDate(String.valueOf(d.getTime()));
-        activities.add(a);
-
-        d = new Date();
-        a.setActivityType("Landing Page");
-        a.setContact(contactId);
-        a.setActivityDate(String.valueOf(d.getTime()));
-        activities.add(a);
-
-        return activities;
-    }
 }

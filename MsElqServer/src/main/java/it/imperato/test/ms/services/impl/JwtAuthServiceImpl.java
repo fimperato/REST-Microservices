@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -22,16 +21,6 @@ public class JwtAuthServiceImpl implements JwtAuthService {
 
     @Autowired
     EncryptionUtils encryptionUtils;
-
-    @Override
-    public String createJwt(String subject, String name, String permission, Date now)
-            throws UnsupportedEncodingException {
-        Date expDate = now;
-        expDate.setTime(now.getTime() + (300*1000));
-        log.info("JWT Creation. Expiration time: " + expDate.getTime());
-        String token = JwtUtils.generateJwt(subject, expDate, name, permission);
-        return token;
-    }
 
     @Override
     public Map<String, Object> retrieveInfoByJwt(HttpServletRequest request)
@@ -44,10 +33,12 @@ public class JwtAuthServiceImpl implements JwtAuthService {
         return userData;
     }
 
-    public void checkJwt(HttpHeaders headers) throws UserNotLoggedException {
+    public void checkJwt(HttpHeaders headers)
+            throws UserNotLoggedException, UnsupportedEncodingException {
         String jwt = JwtUtils.getJwtFromHttpHeaders(headers);
         if(jwt == null){
             throw new UserNotLoggedException("Authentication token not found in the request header");
         }
+        JwtUtils.jwt2Map(jwt);
     }
 }
