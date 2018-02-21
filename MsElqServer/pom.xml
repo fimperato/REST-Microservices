@@ -32,16 +32,21 @@
         </dependency>
 
         <!-- database -->
-        <dependency>
+        <!-- to avoid to mix JPA, which is primarily intended for relational datastores, with MongoDB, which is an "unrelated" document store -->
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        </dependency> -->
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <!-- <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
 
         <dependency>
             <groupId>org.jasypt</groupId>
