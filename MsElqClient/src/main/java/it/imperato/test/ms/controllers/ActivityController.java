@@ -2,10 +2,8 @@ package it.imperato.test.ms.controllers;
 
 import it.imperato.test.ms.model.restbean.Activity;
 import it.imperato.test.ms.model.restbean.ActivityRequestBody;
-import it.imperato.test.ms.model.restbean.Contact;
 import it.imperato.test.ms.utils.ConstantsApp;
 import lombok.extern.java.Log;
-import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +62,7 @@ public class ActivityController {
         try {
             String dataUrl = isMock ? ConstantsApp.MOCK_ACTIVITIES_DATA_URL : ConstantsApp.ACTIVITIES_DATA_URL;
             ResponseEntity<Activity[]> response =
-                    restTemplate.exchange(ConstantsApp.BASE_URL + dataUrl + String.valueOf(cId),
+                    restTemplate.exchange(ConstantsApp.RESOURCE_SERVER_BASE_URL + dataUrl + String.valueOf(cId),
                             HttpMethod.POST, entity, Activity[].class);
 
             List<Activity> acts = Arrays.asList(response.getBody());

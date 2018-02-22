@@ -28,6 +28,7 @@ port: 8087
 
 * Spring Boot 2
 * Spring JPA
+* MongoDB
 * JWT
 * Maven
   

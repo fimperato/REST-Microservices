@@ -9,4 +9,6 @@ public interface JwtTokenRepository extends MongoRepository<JwtTokenInfo, String
 
     JwtTokenInfo findFirstByValidAndSystem(boolean valid, String system);
 
+    void deleteBySystem(String system);
+
 }

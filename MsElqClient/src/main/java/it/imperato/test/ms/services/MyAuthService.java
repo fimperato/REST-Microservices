@@ -1,6 +1,8 @@
 package it.imperato.test.ms.services;
 
 import it.imperato.test.ms.exceptions.UserNotLoggedException;
+import it.imperato.test.ms.model.entities.JwtTokenInfo;
+import it.imperato.test.ms.model.pojo.UserJwtInfoResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -16,5 +18,7 @@ public interface MyAuthService {
             throws UserNotLoggedException, UnsupportedEncodingException;
 
     Map<String, Object> checkAndReadJwtByClient(HttpServletRequest request) throws UserNotLoggedException, UnsupportedEncodingException;
+
+    JwtTokenInfo updateToken(UserJwtInfoResponse userJwtInfoResponse);
 
 }

@@ -1,7 +1,11 @@
 package it.imperato.test.ms.services.impl;
 
 import it.imperato.test.ms.exceptions.UserNotLoggedException;
+import it.imperato.test.ms.model.entities.JwtTokenInfo;
+import it.imperato.test.ms.model.pojo.UserJwtInfoResponse;
+import it.imperato.test.ms.repository.JwtTokenRepository;
 import it.imperato.test.ms.services.MyAuthService;
+import it.imperato.test.ms.utils.ConstantsApp;
 import it.imperato.test.ms.utils.EncryptionUtils;
 import it.imperato.test.ms.utils.JwtUtils;
 import org.slf4j.Logger;
@@ -21,6 +25,9 @@ public class MyAuthServiceImpl implements MyAuthService {
 
     @Autowired
     EncryptionUtils encryptionUtils;
+
+    @Autowired
+    JwtTokenRepository jwtTokenRepository;
 
     @Override
     public String createJwt(String subject, String name, String permission, Date now)
@@ -52,6 +59,26 @@ public class MyAuthServiceImpl implements MyAuthService {
         }
         Map<String, Object> userData = JwtUtils.jwt2Map(jwt);
         return userData;
+    }
+
+    @Override
+    public JwtTokenInfo updateToken(UserJwtInfoResponse userJwtInfoResponse) {
+        jwtTokenRepository.deleteBySystem(ConstantsApp.SISTEMA_MS_APP_CLIENT);
+        String jwt = userJwtInfoResponse.getJwt();
+        Date expireDate = null;
+        try {
+            Map<String, Object> mapInfo = JwtUtils.jwt2Map(jwt);
+            expireDate = mapInfo.get("exp_date")!=null?(Date)mapInfo.get("exp_date"):null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        JwtTokenInfo jwtTokenInfo = new JwtTokenInfo(
+                jwt,
+                new Date(),
+                expireDate,
+                ConstantsApp.SISTEMA_MS_APP_CLIENT,true);
+        jwtTokenInfo = jwtTokenRepository.insert(jwtTokenInfo);
+        return jwtTokenInfo;
     }
 
 }
