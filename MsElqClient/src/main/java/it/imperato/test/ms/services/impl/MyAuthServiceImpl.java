@@ -81,4 +81,15 @@ public class MyAuthServiceImpl implements MyAuthService {
         return jwtTokenInfo;
     }
 
+    /**
+     * Uso del Sistema: ConstantsApp.SISTEMA_MS_APP_CLIENT, per default
+     *
+     * @return
+     */
+    @Override
+    public JwtTokenInfo findValidToken() {
+        JwtTokenInfo jwtTokenInfo = jwtTokenRepository
+                .findFirstByValidAndSystem(true, ConstantsApp.SISTEMA_MS_APP_CLIENT);
+        return jwtTokenInfo;
+    }
 }

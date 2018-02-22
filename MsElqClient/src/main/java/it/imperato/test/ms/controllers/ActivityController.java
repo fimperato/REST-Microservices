@@ -42,9 +42,7 @@ public class ActivityController {
             @PathVariable(name = "contactId") String contactId,
             @RequestParam(name = "isMock", defaultValue = "false") Boolean isMock){
         HttpHeaders reqHeaders = new HttpHeaders();
-
-        //reqHeaders.add("Authorization", authorization);
-        //reqHeaders.add("JWT", jwt);
+        // no auth request headers
 
         reqHeaders.setContentType(MediaType.APPLICATION_JSON);
         reqHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));

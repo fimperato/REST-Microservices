@@ -27,7 +27,7 @@ port: 8087
 ###### Tecnologie:
 
 * Spring Boot 2
-* Spring JPA
+* Spring Data
 * MongoDB
 * JWT
 * Maven

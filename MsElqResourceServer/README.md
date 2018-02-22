@@ -7,7 +7,7 @@ https://docs.oracle.com/cloud/latest/marketingcs_gs/OMCAC/op-api-REST-1.0-data-a
 ```
 
 * Spring Boot 2
-* Spring JPA
+* Spring Data
 * MongoDB
 * JWT
 * Maven
@@ -51,3 +51,4 @@ switched to db msAppElqServerDB
   contact: "151"
 })
 ```
+

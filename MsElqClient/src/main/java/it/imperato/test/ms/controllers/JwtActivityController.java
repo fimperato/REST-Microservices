@@ -1,17 +1,24 @@
 package it.imperato.test.ms.controllers;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import it.imperato.test.ms.exceptions.UserNotLoggedException;
+import it.imperato.test.ms.model.entities.JwtTokenInfo;
 import it.imperato.test.ms.model.pojo.User;
 import it.imperato.test.ms.model.pojo.UserJwtInfoResponse;
 import it.imperato.test.ms.model.restbean.Activity;
 import it.imperato.test.ms.model.restbean.ActivityRequestBody;
+import it.imperato.test.ms.model.restbean.ActivityResponseBody;
 import it.imperato.test.ms.services.MyAuthService;
 import it.imperato.test.ms.utils.ConstantsApp;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +31,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @Log
 @RestController
-@RequestMapping("/jwt")
+@RequestMapping("/activity")
 public class JwtActivityController {
 
     @Autowired
@@ -45,13 +52,19 @@ public class JwtActivityController {
      * @return
      */
     @RequestMapping(value = "/JWT/getActivities/{contactId}", method = POST)
-    public ResponseEntity<List<Activity>> getActivities(
+    public ResponseEntity<ActivityResponseBody> getActivities(
             @PathVariable(name = "contactId") String contactId,
             @RequestHeader HttpHeaders httpHeaders){
         HttpHeaders reqHeaders = new HttpHeaders();
 
         //reqHeaders.add("Authorization", authorization);
-        reqHeaders.add("jwt", httpHeaders.get("jwt")!=null?(String)httpHeaders.get("jwt").get(0):null);
+        String jwtRequestHeaderValue = httpHeaders.get("jwt") != null ? (String) httpHeaders.get("jwt").get(0) : null;
+        if(jwtRequestHeaderValue==null) {
+            // verifico su db per informazione precedentemente memorizzata
+            JwtTokenInfo jwtTokenInfo = myAuthService.findValidToken();
+            jwtRequestHeaderValue = jwtTokenInfo!=null?jwtTokenInfo.getJwt():null;
+        }
+        reqHeaders.add("jwt", jwtRequestHeaderValue);
 
         reqHeaders.setContentType(MediaType.APPLICATION_JSON);
         reqHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));
@@ -73,42 +86,30 @@ public class JwtActivityController {
                             HttpMethod.POST, entity, Activity[].class);
 
             List<Activity> acts = Arrays.asList(response.getBody());
-            return ResponseEntity.status(HttpStatus.OK).body(acts);
-        } catch(Exception ex) {
-            log.log(java.util.logging.Level.SEVERE, "ERRORE: "+ex.getMessage(), ex);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ActivityResponseBody(acts, 200, "Activity ricevute.")
+            );
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
-
-    /**
-     *
-     * http://localhost:8087/jwt/loginUserMock
-     *
-     * @return
-     */
-    @RequestMapping(value = "/getAndSaveJwtInfo", method = POST)
-    public ResponseEntity<UserJwtInfoResponse> getAndSaveJwtInfo(
-            @RequestHeader HttpHeaders httpHeaders,
-            @RequestBody User requestBody){
-        HttpHeaders reqHeaders = new HttpHeaders();
-        reqHeaders.setContentType(MediaType.APPLICATION_JSON);
-        reqHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));
-
-        HttpEntity<Object> entity = new HttpEntity<Object>(requestBody, reqHeaders);
-        try {
-            String dataUrl = ConstantsApp.JWT_RETRIEVE_INFO_MOCK;
-            ResponseEntity<UserJwtInfoResponse> response =
-                    restTemplate.exchange(ConstantsApp.AUTH_SERVER_BASE_URL + dataUrl,
-                            HttpMethod.POST, entity, UserJwtInfoResponse.class);
-
-            // save mongodb response
-            myAuthService.updateToken(response.getBody());
-
-            return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
-        } catch(Exception ex) {
-            log.log(java.util.logging.Level.SEVERE, "ERRORE: "+ex.getMessage(), ex);
+        catch(MalformedJwtException | ExpiredJwtException ex) {
+            log.log(java.util.logging.Level.SEVERE, "JWT Exception: "+ex.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+                    new ActivityResponseBody(null, HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.name())
+            );
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        catch(HttpClientErrorException ex) {
+            log.log(java.util.logging.Level.SEVERE, "HTTP exception: "+ex.getMessage()
+                + " Status code: "+ex.getStatusCode().value()
+                + " Status text: "+ex.getStatusCode().getReasonPhrase());
+            return ResponseEntity.status(ex.getStatusCode()).body(
+                    new ActivityResponseBody(null, ex.getStatusCode().value(), ex.getStatusCode().name())
+            );
+        }
+        catch(Exception ex) {
+            log.log(java.util.logging.Level.SEVERE, "ERRORE generico: "+ex.getMessage(), ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ActivityResponseBody(null, HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.name())
+            );
+        }
     }
 
 }

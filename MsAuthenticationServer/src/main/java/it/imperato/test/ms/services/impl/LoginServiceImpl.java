@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Optional<User> checkCredentials(String id, String password) throws UserNotLoggedException {
 
-        // TODO
+        // Da integrare Spring Security + Handlers per il checkCredentials
 
         return Optional.empty();
     }

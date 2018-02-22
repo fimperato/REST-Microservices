@@ -2,7 +2,6 @@ package it.imperato.test.ms;
 
 import it.imperato.test.ms.model.entities.Activity;
 import it.imperato.test.ms.model.entities.Domain;
-import it.imperato.test.ms.repository.ActivityRepository;
 import it.imperato.test.ms.repository.DomainRepository;
 import it.imperato.test.ms.services.ActivityService;
 import it.imperato.test.ms.utils.ConstantsApp;
@@ -13,18 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.AbstractApplicationContext;
 
 import java.util.List;
 
 @SpringBootApplication
 // @EnableAutoConfiguration
 // @ComponentScan(basePackageClasses = {MyRestController.class, MyAuthService.class, EncryptionUtils.class})
-public class MsElqServerApplication implements CommandLineRunner {
+public class MsElqResourceServerApplication implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(MsElqServerApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(MsElqResourceServerApplication.class);
 
     @Autowired
     DomainRepository domainRepository;
@@ -34,7 +31,7 @@ public class MsElqServerApplication implements CommandLineRunner {
 
     public static void main(String[] args){
         log.info("Spring Boot 2 Application started.");
-        SpringApplication.run(MsElqServerApplication.class, args);
+        SpringApplication.run(MsElqResourceServerApplication.class, args);
     }
 
     @Bean

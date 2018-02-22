@@ -3,7 +3,7 @@
 #### Microservice per operazioni di Authentication
 
 * Spring Boot 2
-* Spring JPA
+* Spring Data
 * JWT
 * Maven
   

@@ -116,7 +116,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "/api/REST/1.0/data/activities/contact/12",
+					"name": "/REST.. /activities/contact/12",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -130,15 +130,56 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8087/jwt/loginUserMock",
+							"raw": "http://localhost:8085/api/REST/1.0/data/activities/contact/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8087",
+							"port": "8085",
 							"path": [
-								"jwt",
-								"loginUserMock"
+								"api",
+								"REST",
+								"1.0",
+								"data",
+								"activities",
+								"contact",
+								"15"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/REST.. mock/activities/contact/100",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "http://localhost:8085/api/REST/1.0/data/mock/activities/contact/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"REST",
+								"1.0",
+								"data",
+								"mock",
+								"activities",
+								"contact",
+								"100"
 							]
 						},
 						"description": ""
@@ -153,6 +194,10 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNSIsImV4cCI6MTUxOTIyODg5MywibmFtZSI6Im1pb3VzZXJuYW1lIn0.T7dQPkdotCEKOxH6oWYPoPJY9OddhIMH3jdMEgym-90"
 							}
 						],
 						"body": {
@@ -160,7 +205,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8085/api/JWT/REST/1.0/data/activities/contact/0",
+							"raw": "http://localhost:8085/api/JWT/REST/1.0/data/activities/contact/14",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -174,10 +219,10 @@
 								"data",
 								"activities",
 								"contact",
-								"0"
+								"14"
 							]
 						},
-						"description": ""
+						"description": "ottenere prima il jwt dal db (memorizzato precedentemente e ancora valido) oppure dall'enpoint sull'Authentication Server: /jwt/loginUserMock"
 					},
 					"response": []
 				}
@@ -188,7 +233,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "/activity/getActivities/",
+					"name": "/activity/getActivities",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -202,7 +247,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "http://localhost:8086/activity/getActivities/12",
+							"raw": "http://localhost:8086/activity/getActivities/14?isMock=false",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -211,7 +256,81 @@
 							"path": [
 								"activity",
 								"getActivities",
-								"12"
+								"14"
+							],
+							"query": [
+								{
+									"key": "isMock",
+									"value": "false",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/JWT/activity/getActivities",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNSIsImV4cCI6MTUxOTI5ODgxOCwibmFtZSI6Im1pb3VzZXJuYW1lIn0.EZz2_VwtCAtIkHY6lOZ0PeB7wDA5hhqvoDo_kMMd9Nc",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/activity/JWT/getActivities/14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"activity",
+								"JWT",
+								"getActivities",
+								"14"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/getAndSaveJwtInfo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"25\",\n\t\"username\": \"mario.rossi\",\n\t\"password\": \"miapassword\",\n\t\"permessi\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/jwt/getAndSaveJwtInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"jwt",
+								"getAndSaveJwtInfo"
 							]
 						},
 						"description": ""
