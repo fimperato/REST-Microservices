@@ -4,6 +4,7 @@
 
 * Spring Boot 2
 * Spring Data
+* Spring Social
 * OAuth2 
   * Facebook provider
 * Maven
@@ -20,8 +21,8 @@ Autenticarsi all'endpoint:
    http://localhost:8088/login/facebook
   ```
   
-Se le impostazioni sono corrette al seguente endpoint: http://localhost:8088/msOAuth2ServerApplication, verrà indicato lo start dell'OAuth Microservice: 
+Se le impostazioni sono corrette al seguente endpoint: http://localhost:8088/fb/getResourceController, verrà indicato lo start dell'OAuth Microservice: 
 
   ```
-   MsOAuth2ServerApplication ready.
+   getResource (FB) controller ready.
   ```

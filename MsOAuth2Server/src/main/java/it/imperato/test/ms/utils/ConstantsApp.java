@@ -2,6 +2,7 @@ package it.imperato.test.ms.utils;
 
 public class ConstantsApp {
 
-    public static final String SIGNIN_KEY = "my_secret_encriptionKey_123";
+    public static final String FB_LOGIN_URI = "/login/facebook";
+
 
 }

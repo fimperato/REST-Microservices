@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MsOAuth2ServerApplicationTest {
+public class MsFbOAuth2ServerApplicationTest {
 
     private MockMvc mvc;
 
