@@ -35,6 +35,11 @@ public class MsOAuth2ServerApplication extends WebSecurityConfigurerAdapter {
     @Autowired
     OAuth2ClientContext oauth2ClientContext;
 
+    @RequestMapping("/msOAuth2ServerApplication")
+    public String user() {
+        return "MsOAuth2ServerApplication ready.";
+    }
+
     @RequestMapping("/user")
     public Principal user(Principal principal) {
         return principal;
@@ -47,7 +52,10 @@ public class MsOAuth2ServerApplication extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**").permitAll().anyRequest().authenticated()
+                .antMatchers("/", "/login**", "/webjars/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and().logout().logoutSuccessUrl("/").permitAll()
                 .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
