@@ -1,6 +1,6 @@
 package it.imperato.test.ms.controllers;
 
-import it.imperato.test.ms.configurations.facebook.GlobalProperties;
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.utils.ConstantsApp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-public class CustomErrorController implements ErrorController {
+public class CustomErrorController
+        implements ErrorController
+        {
 
     private static final Logger log = LoggerFactory.getLogger(CustomErrorController.class);
 
@@ -29,7 +31,7 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping(value = PATH)
     public void error(HttpServletResponse response) throws IOException {
-        log.info("Error Controller ready.");
+        log.info("Error Controller called.");
 
         response.sendRedirect("http://localhost"+":"+globalProperties.getServerPort()
                 + ConstantsApp.FB_LOGIN_URI);

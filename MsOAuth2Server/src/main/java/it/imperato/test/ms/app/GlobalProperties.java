@@ -1,4 +1,4 @@
-package it.imperato.test.ms.configurations.facebook;
+package it.imperato.test.ms.app;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +12,16 @@ import org.springframework.stereotype.Component;
 @PropertySource("application.properties")
 public class GlobalProperties {
 
-    @Value("${server.port}")
+    @Value("${oauth2.provider.facebook.active}")
     @Getter @Setter
     private String serverPort;
+
+    @Value("${oauth2.provider.facebook.active}")
+    @Getter @Setter
+    private Boolean oauth2ProviderFacebookActive;
+
+    @Value("${oauth2.provider.google.active}")
+    @Getter @Setter
+    private Boolean oauth2ProviderGoogleActive;
 
 }

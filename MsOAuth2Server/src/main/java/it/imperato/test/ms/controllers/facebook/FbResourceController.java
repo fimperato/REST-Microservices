@@ -2,7 +2,7 @@ package it.imperato.test.ms.controllers.facebook;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.imperato.test.ms.configurations.facebook.FbGlobalProperties;
+import it.imperato.test.ms.app.FbGlobalProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

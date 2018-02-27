@@ -1,11 +1,9 @@
 package it.imperato.test.ms.controllers.facebook;
 
-import it.imperato.test.ms.configurations.facebook.FbGlobalProperties;
-import it.imperato.test.ms.configurations.facebook.GlobalProperties;
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.utils.ConstantsApp;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 @Log
 @RestController

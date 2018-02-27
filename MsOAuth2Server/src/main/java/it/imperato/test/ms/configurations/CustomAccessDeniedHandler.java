@@ -1,7 +1,9 @@
-package it.imperato.test.ms.configurations.facebook;
+package it.imperato.test.ms.configurations;
 
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.utils.ConstantsApp;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,9 @@ import java.util.logging.Level;
 
 @Log
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
+
+    @Autowired
+    GlobalProperties globalProperties;
 
     @Override
     public void handle(

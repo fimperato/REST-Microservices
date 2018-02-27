@@ -1,5 +1,7 @@
 package it.imperato.test.ms.configurations.facebook;
 
+import it.imperato.test.ms.app.FbGlobalProperties;
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.utils.ConstantsApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

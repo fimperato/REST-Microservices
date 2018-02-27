@@ -1,10 +1,9 @@
-package it.imperato.test.ms.configurations.facebook;
+package it.imperato.test.ms.app;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -12,26 +11,38 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties
 @PropertySource("application-oauth2-default.properties")
 @PropertySource("file:${MS_2018_CONF}/application-oauth2.properties") // Set MS_2018_CONF in env. variables
-public class FbGlobalProperties {
+public class GoogleGlobalProperties {
 
-    @Value("${facebook.client.clientId}")
+    @Value("${google.client.clientId}")
     @Getter @Setter
     private String clientID;
 
-    @Value("${facebook.client.clientSecret}")
+    @Value("${google.client.clientSecret}")
     @Getter @Setter
     private String clientSecret;
 
-    @Value("${facebook.client.accessTokenUri}")
+    @Value("${google.client.accessTokenUri}")
     @Getter @Setter
     private String accessTokenUri;
 
-    @Value("${facebook.client.userAuthorizationUri}")
+    @Value("${google.client.userAuthorizationUri}")
     @Getter @Setter
     private String userAuthorizationUri;
 
-    @Value("${facebook.client.tokenName}")
+    @Value("${google.client.clientAuthenticationScheme}")
     @Getter @Setter
-    private String tokenName;
+    private String clientAuthenticationScheme;
 
+    @Value("${google.client.scope}")
+    @Getter @Setter
+    private String scope;
+
+
+    @Value("${google.resource.userInfoUri}")
+    @Getter @Setter
+    private String userInfoUri;
+
+    @Value("${google.resource.preferTokenInfo}")
+    @Getter @Setter
+    private String preferTokenInfo;
 }
