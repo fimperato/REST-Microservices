@@ -4,6 +4,7 @@ import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.utils.ConstantsApp;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class FbLoginController {
 
     @Autowired
+    @Qualifier("fbRestTemplate")
     RestTemplate restTemplate;
 
     @Autowired

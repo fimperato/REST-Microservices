@@ -33,8 +33,10 @@ public class CustomErrorController
     public void error(HttpServletResponse response) throws IOException {
         log.info("Error Controller called.");
 
-        response.sendRedirect("http://localhost"+":"+globalProperties.getServerPort()
-                + ConstantsApp.FB_LOGIN_URI);
+        if(globalProperties.getOauth2ProviderFacebookActive()) {
+            response.sendRedirect("http://localhost" + ":" + globalProperties.getServerPort()
+                    + ConstantsApp.FB_LOGIN_URI);
+        }
     }
 
 }

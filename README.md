@@ -31,6 +31,6 @@ port: 8087
 * Spring Social
 * MongoDB
 * JWT
-* OAuth 2.0
+* OAuth 2.0 (provider: Facebook, Google)
 * Maven
   

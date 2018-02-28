@@ -7,6 +7,7 @@
 * Spring Social
 * OAuth2 
   * Facebook provider
+  * Google provider
 * Maven
   
 ###### Impostazioni Provider Facebook:

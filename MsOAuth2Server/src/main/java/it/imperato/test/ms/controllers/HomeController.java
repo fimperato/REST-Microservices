@@ -24,7 +24,7 @@ public class HomeController {
     }
 
     @RequestMapping(
-            value = "user",
+            value = "/user",
             method = RequestMethod.GET)
     public Principal user(Principal user) {
         return user;

@@ -4,5 +4,6 @@ public class ConstantsApp {
 
     public static final String FB_LOGIN_URI = "/login/facebook";
 
+    public static final String GOOGLE_LOGIN_URI = "/login/google";
 
 }

@@ -2,10 +2,11 @@ package it.imperato.test.ms.controllers.facebook;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.imperato.test.ms.app.FbGlobalProperties;
+import it.imperato.test.ms.app.ProviderGlobalProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.social.connect.Connection;
@@ -40,9 +41,10 @@ public class FbResourceController {
     private static final Logger log = LoggerFactory.getLogger(FbResourceController.class);
 
     @Autowired
-    FbGlobalProperties globalProperties;
+    ProviderGlobalProperties globalProperties;
 
     @Autowired
+    @Qualifier(value = "fbRestTemplate")
     OAuth2RestTemplate fbRestTemplate;
 
     @RequestMapping("/getResourceController")
