@@ -27,6 +27,7 @@ public class HomeController {
             value = "/user",
             method = RequestMethod.GET)
     public Principal user(Principal user) {
+
         return user;
     }
 

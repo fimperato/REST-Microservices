@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Log
 @Component
@@ -22,12 +23,12 @@ public class GoogleBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
     public void commence
             (HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx)
             throws IOException, ServletException {
-        //response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
-        //response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        //PrintWriter writer = response.getWriter();
-        //writer.println("HTTP Status 401 - " + authEx.getMessage());
-        log.info("GoogleBasicAuthenticationEntryPoint commence method called.");
+        response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        PrintWriter writer = response.getWriter();
+        writer.println("HTTP Status 401 - " + authEx.getMessage());
 
+        //log.info("GoogleBasicAuthenticationEntryPoint commence method called.");
         //response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         //response.sendRedirect(ConstantsApp.GOOGLE_LOGIN_URI);
     }

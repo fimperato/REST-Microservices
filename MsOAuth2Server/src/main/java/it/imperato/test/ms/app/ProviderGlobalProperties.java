@@ -69,9 +69,14 @@ public class ProviderGlobalProperties {
     @Getter @Setter
     private String gRedirectUris;
 
+
     @Value("${google.client.filterCallbackPath}")
     @Getter @Setter
-    private String filterCallbackPath;
+    private String gFilterCallbackPath;
+
+    @Value("${google.client.authenticationPath}")
+    @Getter @Setter
+    private String gAuthenticationPath;
 
 
     @Value("${google.resource.userInfoUri}")

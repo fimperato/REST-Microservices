@@ -4,6 +4,7 @@ import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.app.ProviderGlobalProperties;
 import it.imperato.test.ms.configurations.CustomAccessDeniedHandler;
 import it.imperato.test.ms.configurations.facebook.FbBasicAuthenticationEntryPoint;
+import it.imperato.test.ms.configurations.google.CustomAuthenticationHandler;
 import it.imperato.test.ms.configurations.google.GoogleBasicAuthenticationEntryPoint;
 import it.imperato.test.ms.configurations.google.GoogleUserInfoTokenServices;
 import it.imperato.test.ms.utils.ConstantsApp;
@@ -26,6 +27,9 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -38,6 +42,7 @@ import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +62,9 @@ public class MsOAuth2ServerConfigSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     ProviderGlobalProperties providerGlobalProperties;
+
+    @Autowired
+    CustomAuthenticationHandler customGoogleAuthenticationHandler;
 
     //private OAuth2ClientContext oauth2ClientContext;
     //private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
@@ -150,7 +158,7 @@ public class MsOAuth2ServerConfigSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/**.html", "/**.js", "/login/google**", "/login**")
                 .permitAll()
                 // Authenticate all remaining URLs.
-                //.anyRequest().fullyAuthenticated()
+                .anyRequest().fullyAuthenticated()
                 .and()
                 // Setting the logout URL "/logout" - default logout URL.
                 .logout()
@@ -177,16 +185,22 @@ public class MsOAuth2ServerConfigSecurity extends WebSecurityConfigurerAdapter {
     private OAuth2ClientAuthenticationProcessingFilter googleFilter() {
         //Creating the filter for "/login/google" url
         OAuth2ClientAuthenticationProcessingFilter googleOAuth2Filter =
-                new OAuth2ClientAuthenticationProcessingFilter(ConstantsApp.GOOGLE_LOGIN_URI);
-        googleOAuth2Filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler() {
-            public void onAuthenticationSuccess(HttpServletRequest request,
-                                                HttpServletResponse response,
+                new OAuth2ClientAuthenticationProcessingFilter(providerGlobalProperties.getGAuthenticationPath());
+
+        // Authentication HANDLER set:
+        googleOAuth2Filter.setAuthenticationSuccessHandler(customGoogleAuthenticationHandler);
+        /* Caso di uso: SimpleUrlAuthenticationSuccessHandler
+        googleOAuth2Filter.setAuthenticationSuccessHandler(
+                new SimpleUrlAuthenticationSuccessHandler() {
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-                String codeToNextRequest = request.getParameter("code");
-                this.setDefaultTargetUrl("/oauth/callback");
-                super.onAuthenticationSuccess(request, response, authentication);
-            }
-        });
+                        String authorizationCode = request.getParameter("code");
+                        this.setDefaultTargetUrl(providerGlobalProperties.getGFilterCallbackPath());
+                        super.onAuthenticationSuccess(request, response, authentication);
+                    }
+                });
+        */
+
         //Creating the rest template for getting connected with OAuth service.
         //The configuration parameters will inject while creating the bean.
         OAuth2RestTemplate googleOAuth2RestTemplate = new OAuth2RestTemplate(google(),
@@ -199,9 +213,17 @@ public class MsOAuth2ServerConfigSecurity extends WebSecurityConfigurerAdapter {
         GoogleUserInfoTokenServices tokenServices = googleUserInfoTokenServices();
 
         tokenServices.setRestTemplate(googleOAuth2RestTemplate);
+        //tokenServices.setTokenStore(tokenStore());
+        //tokenServices.setSupportRefreshToken(true);
         googleOAuth2Filter.setTokenServices(tokenServices);
 
         return googleOAuth2Filter;
+    }
+
+    //@Bean
+    public TokenStore tokenStore() {
+        DataSource dataSource = null; // to add
+        return new JdbcTokenStore(dataSource);
     }
 
     @Bean
