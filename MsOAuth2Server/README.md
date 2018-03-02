@@ -8,6 +8,7 @@
 * OAuth2 
   * Facebook provider
   * Google provider
+* MongoDB
 * Maven
   
 ###### Impostazioni Provider Facebook:
@@ -52,5 +53,19 @@ Se si è ottenuto correttamente l'access token, l'accesso alla risorsa sarà per
   ```
    curl -i -H "Authorization: Bearer ya29.[...]AHES(60 Characters Long)" "https://www.googleapis.com/userinfo/v2/me"
   ```
+
+Se le informazioni sono state salvate saranno reperibili in GET:
   
-  
+  ```
+   http://localhost:[server.port]/oauth2/findValid
+  ```
+
+###### MongoDB note:
+
+```
+C:\Program Files\MongoDB\Server\3.4\bin>mongod --dbpath C:\mongodb_data\ms18_data
+C:\Program Files\MongoDB\Server\3.4\bin>mongo
+> use msOAuth2ClientDB
+switched to db msOAuth2ClientDB
+> db.createCollection("authorization")
+> db.authorization.find()

@@ -1,6 +1,7 @@
 package it.imperato.test.ms.controllers.google;
 
 import it.imperato.test.ms.app.ProviderGlobalProperties;
+import it.imperato.test.ms.services.MyAuthService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,6 +41,9 @@ public class OAuth2CallbackController {
     OAuth2RestTemplate googleRestTemplate;
 
     @Autowired
+    MyAuthService authService;
+
+    @Autowired
     ProviderGlobalProperties providerGlobalProperties;
 
     @RequestMapping("/callback")
@@ -53,6 +57,10 @@ public class OAuth2CallbackController {
         String msg = "access_token: " + accessToken + " refresh_token: " + refreshToken
                 + " expiration_date: " + expDate + " token_type: " + tokenType;
         log.info(msg);
+
+        // Memorizzo i dati sul client
+        authService.saveOAuth2TokenInfo(oAuth2AccessToken);
+
         return msg;
     }
 

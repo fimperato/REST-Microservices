@@ -8,11 +8,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Log
 @EnableOAuth2Client
 @SpringBootApplication
-public class MsOAuth2ServerApplication {
+public class MsOAuth2ClientApplication {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(MsOAuth2ServerApplication.class, args);
+        SpringApplication.run(MsOAuth2ClientApplication.class, args);
     }
 
 }

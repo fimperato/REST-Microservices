@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.imperato.test.ms</groupId>
-    <artifactId>MsOAuth2Server</artifactId>
+    <artifactId>MsOAuth2Client</artifactId>
     <version>1.0</version>
 
     <packaging>jar</packaging>
@@ -43,6 +43,7 @@
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>js-cookie</artifactId>
@@ -79,6 +80,12 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
             <version>${spring-social-facebook.version}</version>
+        </dependency>
+
+        <!-- DB -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
 

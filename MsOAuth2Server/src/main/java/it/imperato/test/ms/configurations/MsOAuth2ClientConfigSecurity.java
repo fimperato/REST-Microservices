@@ -49,7 +49,7 @@ import java.util.List;
 
 @Log
 @Configuration
-public class MsOAuth2ServerConfigSecurity extends WebSecurityConfigurerAdapter {
+public class MsOAuth2ClientConfigSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     OAuth2ClientContext oauth2ClientContext;
