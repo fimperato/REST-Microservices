@@ -123,6 +123,12 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+		
+		<repository>
+            <id>maven-central</id>
+            <name>Maven Plugin Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+        </repository>
     </repositories>
 
 </project>
