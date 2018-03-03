@@ -1,4 +1,5 @@
-## Microservices REST
+# Microservices REST [![Build Status](https://travis-ci.org/fimperato/REST-Microservices.svg?branch=master)](https://travis-ci.org/fimperato/REST-Microservices) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 ##### Microservice One e basic configuration
 
@@ -22,6 +23,12 @@ port: 8086
 
 ```
 port: 8087
+```
+
+##### Microservice per gestione (client) di autenticazione OAuth2 verso Social Provider
+
+```
+port: 8088
 ```
 
 ###### Tecnologie:
