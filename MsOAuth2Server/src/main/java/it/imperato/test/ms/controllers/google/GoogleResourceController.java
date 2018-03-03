@@ -39,9 +39,6 @@ public class GoogleResourceController {
     private static final Logger log = LoggerFactory.getLogger(GoogleResourceController.class);
 
     @Autowired
-    ProviderGlobalProperties globalProperties;
-
-    @Autowired
     @Qualifier(value = "googleRestTemplate")
     OAuth2RestTemplate googleRestTemplate;
 

@@ -28,7 +28,7 @@ public class GoogleBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
         //PrintWriter writer = response.getWriter();
         //writer.println("HTTP Status 401 - " + authEx.getMessage());
 
-        log.info("GoogleBasicAuthenticationEntryPoint commence method called.");
+        log.info("GoogleBasicAuthenticationEntryPoint commence method called. Servlet path: "+request.getServletPath());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.sendRedirect(ConstantsApp.GOOGLE_LOGIN_URI);
     }

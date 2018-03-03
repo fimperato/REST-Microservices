@@ -31,8 +31,10 @@ public class CustomAuthenticationHandler extends SavedRequestAwareAuthentication
             requestUrl = UrlTool.addParamToURL(requestUrl, "authorization_code", authorizationCode, true);
             getRedirectStrategy().sendRedirect(request, response, requestUrl);
         } else {
-            // in caso di success al secondo entry (login già avvenuto authorizationCode null): eventuali operazioni qui
-            super.onAuthenticationSuccess(request, response, authentication);
+            // in caso di success al secondo entry (login/oauth flow già avvenuto, authorizationCode null): eventuali operazioni qui
+            getRedirectStrategy().sendRedirect(request, response, requestUrl);
+
+            //super.onAuthenticationSuccess(request, response, authentication);
         }
     }
 }

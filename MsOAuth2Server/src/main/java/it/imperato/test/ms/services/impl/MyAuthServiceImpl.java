@@ -33,15 +33,29 @@ public class MyAuthServiceImpl implements MyAuthService {
     @Override
     public void saveOAuth2TokenInfo(OAuth2AccessToken oAuth2AccessToken) {
         OAuthInfo oAuthInfo = new OAuthInfo();
+        updateTokenInfo(oAuth2AccessToken, oAuthInfo);
+        oAuthInfo.setSystem(ConstantsApp.SISTEMA_MS_OAUTH2_CLIENT);
+        oAuthInfo.setValid(true);
+        oAuthInfoRepository.save(oAuthInfo);
+    }
+
+    @Override
+    public void saveOrUpdateOAuth2TokenInfo(OAuth2AccessToken oAuth2AccessToken) {
+        // token valido per il sistema presente
+        OAuthInfo oAuthInfo = findValidToken();
+        if(oAuthInfo==null) {
+            oAuthInfo = new OAuthInfo();
+        }
+        updateTokenInfo(oAuth2AccessToken, oAuthInfo);
+        oAuthInfoRepository.save(oAuthInfo);
+    }
+
+    private void updateTokenInfo(OAuth2AccessToken oAuth2AccessToken, OAuthInfo oAuthInfo) {
         oAuthInfo.setAccessToken(oAuth2AccessToken.getValue());
         oAuthInfo.setAccessTokenExpirationDate(oAuth2AccessToken.getExpiration());
         oAuthInfo.setAccessTokenExpiresIn(oAuth2AccessToken.getExpiresIn());
         oAuthInfo.setRefreshToken(oAuth2AccessToken.getRefreshToken()!=null?oAuth2AccessToken.getRefreshToken().getValue():null);
         oAuthInfo.setScope(oAuth2AccessToken.getScope());
         oAuthInfo.setTokenType(oAuth2AccessToken.getTokenType());
-        oAuthInfo.setSystem(ConstantsApp.SISTEMA_MS_OAUTH2_CLIENT);
-        oAuthInfo.setValid(true);
-        oAuthInfoRepository.save(oAuthInfo);
     }
-
 }

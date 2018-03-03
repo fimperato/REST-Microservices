@@ -25,44 +25,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
 
 /**
  * Callback endpoint management:
  * <p>
- * [host]:[server.port]/oauth2/callback
+ * [host]:[server.port]/oauth2/code/google
  */
 @Log
 @RestController
 @RequestMapping("/oauth2")
-public class OAuth2CallbackController {
+public class OAuth2RequestController {
 
     @Autowired
     @Qualifier(value = "googleRestTemplate")
     OAuth2RestTemplate googleRestTemplate;
 
     @Autowired
-    MyAuthService authService;
-
-    @Autowired
     ProviderGlobalProperties providerGlobalProperties;
-
-    @RequestMapping("/callback")
-    public String processOAuthCallback(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        OAuth2AccessToken oAuth2AccessToken = googleRestTemplate.getAccessToken();
-        String accessToken = oAuth2AccessToken.getValue();
-        OAuth2RefreshToken oAuth2RefreshToken = oAuth2AccessToken.getRefreshToken();
-        String refreshToken = oAuth2RefreshToken!=null?oAuth2RefreshToken.getValue():"N.D.";
-        Date expDate = oAuth2AccessToken.getExpiration();
-        String tokenType = oAuth2AccessToken.getTokenType();
-        String msg = "access_token: " + accessToken + " refresh_token: " + refreshToken
-                + " expiration_date: " + expDate + " token_type: " + tokenType;
-        log.info(msg);
-
-        // Memorizzo i dati sul client
-        authService.saveOAuth2TokenInfo(oAuth2AccessToken);
-
-        return msg;
-    }
 
     @RequestMapping("/code/google")
     public void processOAuthCodeGoogle(HttpServletRequest request, HttpServletResponse response) throws IOException {

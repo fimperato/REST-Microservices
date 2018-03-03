@@ -9,4 +9,6 @@ public interface MyAuthService {
 
     void saveOAuth2TokenInfo(OAuth2AccessToken oAuth2AccessToken);
 
+    void saveOrUpdateOAuth2TokenInfo(OAuth2AccessToken oAuth2AccessToken);
+
 }

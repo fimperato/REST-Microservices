@@ -10,6 +10,7 @@ import it.imperato.test.ms.configurations.google.GoogleUserInfoTokenServices;
 import it.imperato.test.ms.utils.ConstantsApp;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,6 +18,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -49,6 +51,9 @@ import java.util.List;
 
 @Log
 @Configuration
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+// After release 1.5.x OAuth2 resource server order is set to SecurityProperties.ACCESS_OVERRIDE_ORDER - 1 (it is Integer.MAX_VALUE - 8 I think) which has now definitely lower priority then basic WebSecurityConfigurerAdapter order.
+// https://docs.spring.io/autorepo/docs/spring-security/4.2.2.RELEASE/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html?is-external=true
 public class MsOAuth2ClientConfigSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -82,6 +87,8 @@ public class MsOAuth2ClientConfigSecurity extends WebSecurityConfigurerAdapter {
      specify that inside this method.*/
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/oauth2/getInfo/findValid**");
         super.configure(web);
     }
 
