@@ -16,7 +16,86 @@
 	<module>MsElqResourceServer</module>
     <module>MsOAuth2Client</module>
 	<module>MyMsOne</module>
+    <module>Ms-test</module>
 	
   </modules>
   
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <build>
+		<pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.7.9</version>
+                </plugin>
+			    <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.3</version>
+					<configuration>
+					  <useReleaseProfile>true</useReleaseProfile>
+					  <releaseProfiles>release</releaseProfiles>
+					  <goals>deploy</goals>
+					</configuration>
+			    </plugin>
+			</plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.0.0.RELEASE</version>
+            </plugin>
+			
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+			
+			<plugin>
+			  <groupId>org.eluder.coveralls</groupId>
+			  <artifactId>coveralls-maven-plugin</artifactId>
+			  <version>4.3.0</version>
+			  <configuration>
+					<sourceEncoding>UTF8</sourceEncoding>
+					<jacocoReports>
+						<jacocoReport>${project.basedir}/Ms-test/target/site/jacoco-aggregate/jacoco.xml</jacocoReport>
+					</jacocoReports>
+			  </configuration>
+			</plugin>
+        </plugins>			
+						
+    </build>
+  
+   <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+		
+		<repository>
+            <id>maven-central</id>
+            <name>Maven Plugin Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+	
 </project>

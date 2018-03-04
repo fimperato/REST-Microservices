@@ -40,10 +40,14 @@ public class MsElqClientApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        JwtTokenInfo firstTokenRow = jwtTokenRepository
-                .findFirstByValidAndSystem(true, ConstantsApp.SISTEMA_MS_APP_CLIENT);
-        log.info("Jwt first valid row available: "
-                + (firstTokenRow!=null?firstTokenRow.toString():"N.D."));
+        try {
+            JwtTokenInfo firstTokenRow = jwtTokenRepository
+                    .findFirstByValidAndSystem(true, ConstantsApp.SISTEMA_MS_APP_CLIENT);
+            log.info("Jwt first valid row available: "
+                    + (firstTokenRow != null ? firstTokenRow.toString() : "N.D."));
+        } catch(Exception e) {
+            log.error("ERRORE in application run (MongoDB not started on host): " +e.getMessage());
+        }
 
     }
 }

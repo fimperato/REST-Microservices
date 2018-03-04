@@ -46,7 +46,7 @@ public class TestController {
     Company myBrlCompany;
 
     @RequestMapping("/testController")
-    public String userManagementTest(){
+    public String testMethod(){
         return "TestController ready.";
     }
 

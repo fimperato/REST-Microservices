@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+		  <groupId>it.imperato.test.ms</groupId>
+		  <artifactId>REST-Microservices-2018</artifactId>
+		  <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>Ms-test</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>it.imperato.test.ms</groupId>
+			<artifactId>MsElqResourceServer</artifactId>
+			<version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>it.imperato.test.ms</groupId>
+			<artifactId>MyMsOne</artifactId>
+			<version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>it.imperato.test.ms</groupId>
+			<artifactId>MsElqClient</artifactId>
+			<version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>it.imperato.test.ms</groupId>
+			<artifactId>MsOAuth2Client</artifactId>
+			<version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>it.imperato.test.ms</groupId>
+			<artifactId>MsAuthenticationServer</artifactId>
+			<version>1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <!-- Jacoco prepare-agent builds some command-line params without -->
+                    <!-- which jacoco will not instrument. Hence it is important to add -->
+                    <!-- those command-line params here (${argLine} holds those params) -->
+                    <argLine>${argLine} -Xms256m -Xmx2048m</argLine>
+                    <forkCount>1</forkCount>
+                    <runOrder>random</runOrder>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

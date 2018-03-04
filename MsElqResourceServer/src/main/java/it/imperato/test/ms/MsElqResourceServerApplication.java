@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
@@ -24,9 +25,11 @@ public class MsElqResourceServerApplication implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(MsElqResourceServerApplication.class);
 
     @Autowired
+    @Lazy
     DomainRepository domainRepository;
 
     @Autowired
+    @Lazy
     ActivityService activityService;
 
     public static void main(String[] args){
@@ -44,33 +47,37 @@ public class MsElqResourceServerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Domain firstByDom = domainRepository.findFirstByDomain("imperato_domain");
-        log.info(firstByDom!=null?firstByDom.toString():"N.D.");
+        try {
+            Domain firstByDom = domainRepository.findFirstByDomain("imperato_domain");
+            log.info(firstByDom != null ? firstByDom.toString() : "N.D.");
 
-        // AbstractApplicationContext context = new AnnotationConfigApplicationContext(MyApplicationConfig.class);
-        // ActivityService carService = (ActivityService) context.getBean("activityService");
+            // AbstractApplicationContext context = new AnnotationConfigApplicationContext(MyApplicationConfig.class);
+            // ActivityService carService = (ActivityService) context.getBean("activityService");
 
-        // Rimuovo tutte le activity
-        activityService.deleteAll();
+            // Rimuovo tutte le activity
+            activityService.deleteAll();
 
-        // Inserimenti di activity
-        Activity activity1 = new Activity(null,
-                "1519210423520","Completed","Landing Page","14",null);
-        activityService.create(activity1);
+            // Inserimenti di activity
+            Activity activity1 = new Activity(null,
+                    "1519210423520", "Completed", "Landing Page", "14", null);
+            activityService.create(activity1);
 
-        Activity activity2 = new Activity(null,
-                "1519210423525","Received","Email","15",null);
-        activityService.create(activity2);
-        Activity activity3 = new Activity(null,
-                "1519210423551","Open","Email","15",null);
-        activityService.create(activity3);
+            Activity activity2 = new Activity(null,
+                    "1519210423525", "Received", "Email", "15", null);
+            activityService.create(activity2);
+            Activity activity3 = new Activity(null,
+                    "1519210423551", "Open", "Email", "15", null);
+            activityService.create(activity3);
 
-        List<Activity> activities = activityService.findByContact("15");
-        log.info("Contact-15 activities. "
-                + (activities!=null?"Activities found: "+String.valueOf(activities.size()):"N.D.") );
+            List<Activity> activities = activityService.findByContact("15");
+            log.info("Contact-15 activities. "
+                    + (activities != null ? "Activities found: " + String.valueOf(activities.size()) : "N.D."));
 
-        activities = activityService.findAll();
-        log.info("All activities. "
-                + (activities!=null?"Activities found: "+String.valueOf(activities.size()):"N.D.") );
+            activities = activityService.findAll();
+            log.info("All activities. "
+                    + (activities != null ? "Activities found: " + String.valueOf(activities.size()) : "N.D."));
+        } catch(Exception e) {
+            log.error("ERRORE in application run (MongoDB not started on host): " +e.getMessage());
+        }
     }
 }

@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Log
 @RestController
 @RequestMapping("/activity")
-public class ActivityController {
+public class ActivityClientController {
 
     protected static final String CONTACT_ID_TEST = "15";
 
@@ -25,7 +25,7 @@ public class ActivityController {
 
     @RequestMapping("/activityController")
     public String activityController(){
-        return "ActivityController (Client) ready.";
+        return "ActivityClientController (Client) ready.";
     }
 
     /**
