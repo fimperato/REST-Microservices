@@ -71,6 +71,7 @@
 			  <artifactId>coveralls-maven-plugin</artifactId>
 			  <version>4.3.0</version>
 			  <configuration>
+					<repoToken>O62lXuF0dvSsHR58VHtR9Pd4MRbsyXTNe</repoToken>
 					<sourceEncoding>UTF8</sourceEncoding>
 					<jacocoReports>
 						<jacocoReport>${project.basedir}/Ms-test/target/site/jacoco-aggregate/jacoco.xml</jacocoReport>

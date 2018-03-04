@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties
 @PropertySource("application-oauth2-default.properties")
-@PropertySource("file:${MS_2018_CONF}/application-oauth2.properties") // Set MS_2018_CONF in env. variables
+// If Set MS_2018_CONF in env. variables, enable that (hide secret keys):
+//@PropertySource("file:${MS_2018_CONF}/application-oauth2.properties")
 public class ProviderGlobalProperties {
 
     @Value("${facebook.client.clientId}")
