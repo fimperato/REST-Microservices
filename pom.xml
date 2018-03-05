@@ -20,8 +20,18 @@
 	
   </modules>
   
+  <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+  </licenses>
+	
   <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	
+	<jdk.version>1.8</jdk.version>
+	<jacoco.version>0.7.9</jacoco.version>
   </properties>
   
   <build>
@@ -30,7 +40,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.9</version>
+                    <version>${jacoco.version}</version>
                 </plugin>
 			    <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -46,16 +56,18 @@
         </pluginManagement>
 
         <plugins>
+			
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.0.0.RELEASE</version>
             </plugin>
 			
+			<!-- utility per report-aggregate con jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.9</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -66,13 +78,20 @@
                 </executions>
             </plugin>
 			
+			<!-- coveralls -->
 			<plugin>
 			  <groupId>org.eluder.coveralls</groupId>
 			  <artifactId>coveralls-maven-plugin</artifactId>
 			  <version>4.3.0</version>
 			  <configuration>
+					<repoToken>repotokencoveralls</repoToken>
 					<sourceEncoding>UTF8</sourceEncoding>
 					<jacocoReports>
+						<jacocoReport>${project.basedir}/MsAuthenticationServer/target/site/jacoco-ut/jacoco.xml</jacocoReport>
+						<jacocoReport>${project.basedir}/MsElqClient/target/site/jacoco-ut/jacoco.xml</jacocoReport>
+						<jacocoReport>${project.basedir}/MsElqResourceServer/target/site/jacoco-ut/jacoco.xml</jacocoReport>
+						<jacocoReport>${project.basedir}/MsOAuth2Client/target/site/jacoco-ut/jacoco.xml</jacocoReport>
+						<jacocoReport>${project.basedir}/MyMsOne/target/site/jacoco-ut/jacoco.xml</jacocoReport>
 						<jacocoReport>${project.basedir}/Ms-test/target/site/jacoco-aggregate/jacoco.xml</jacocoReport>
 					</jacocoReports>
 			  </configuration>

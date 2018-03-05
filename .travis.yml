@@ -7,7 +7,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn clean test org.jacoco:jacoco-maven-plugin:report-aggregate
+  - mvn clean test org.jacoco:jacoco-maven-plugin:report
 
 after_success:
   - mvn org.eluder.coveralls:coveralls-maven-plugin:report
