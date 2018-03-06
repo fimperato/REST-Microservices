@@ -180,6 +180,7 @@
                         <exclude>**/*it/imperato/test/ms/model/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/utils/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/*App*</exclude> <!-- Spring boot Application -->
+                        <exclude>**/*it/imperato/test/ms/**/*Sample*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

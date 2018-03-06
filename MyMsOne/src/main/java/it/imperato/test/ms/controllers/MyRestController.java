@@ -74,6 +74,10 @@ public class MyRestController {
             return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(
                     new JsonResponseBody( HttpStatus.GATEWAY_TIMEOUT.value(), "Session Expired!: " + jwtEx.toString() ));
         }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new JsonResponseBody( HttpStatus.INTERNAL_SERVER_ERROR.value(), "App Exception!: " + e.toString() ));
+        }
     }
 
 }

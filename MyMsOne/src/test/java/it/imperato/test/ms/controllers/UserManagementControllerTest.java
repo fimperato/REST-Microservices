@@ -26,7 +26,15 @@ public class UserManagementControllerTest {
     public void authUserTest() {
         ResponseEntity<UserManagementController.JsonResponseBody> res =
                 userManagementController.authUserTest("user","pass");
-        Assert.assertNotEquals(HttpStatus.BAD_REQUEST, res.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK, res.getStatusCode());
     }
+
+    @Test
+    public void jwtByClientTest() {
+        ResponseEntity<UserManagementController.JsonResponseBody> res =
+                userManagementController.jwtByClientTest(null);
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
+    }
+
 
 }

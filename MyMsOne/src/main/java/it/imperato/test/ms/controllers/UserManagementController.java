@@ -84,9 +84,11 @@ public class UserManagementController {
 
         // Request -> get JWT by client -> check JWT info
         try {
-            Map<String, Object> jwtInfo = authService.checkAndReadJwtByClient(request);
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new JsonResponseBody(HttpStatus.OK.value(), jwtInfo ));
+            if(request != null) {
+                Map<String, Object> jwtInfo = authService.checkAndReadJwtByClient(request);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new JsonResponseBody(HttpStatus.OK.value(), jwtInfo));
+            }
         }
         catch(UnsupportedEncodingException unsEx){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
@@ -100,6 +102,12 @@ public class UserManagementController {
             return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(
                     new JsonResponseBody( HttpStatus.GATEWAY_TIMEOUT.value(), "Session Expired!: " + jwtEx.toString() ));
         }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new JsonResponseBody( HttpStatus.INTERNAL_SERVER_ERROR.value(), "App Exception!: " + e.toString() ));
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new JsonResponseBody( HttpStatus.INTERNAL_SERVER_ERROR.value(), "App Exception"));
     }
 
 }

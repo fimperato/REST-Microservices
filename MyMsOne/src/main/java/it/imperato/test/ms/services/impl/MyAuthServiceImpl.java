@@ -38,9 +38,12 @@ public class MyAuthServiceImpl implements MyAuthService {
     @Override
     public Map<String, Object> verifyJwtAndDoSomeOperation(HttpServletRequest request)
             throws UserNotLoggedException, UnsupportedEncodingException {
+        if(request == null) {
+            throw new UserNotLoggedException("Request not well formed.");
+        }
         String jwt = JwtUtils.getJwtFromHttpRequest(request);
         if(jwt == null){
-            throw new UserNotLoggedException("Authentication token not found in the request");
+            throw new UserNotLoggedException("Authentication token not found in the request.");
         }
         Map<String, Object> userData = JwtUtils.jwt2Map(jwt);
         return userData;
@@ -65,6 +68,9 @@ public class MyAuthServiceImpl implements MyAuthService {
     @Override
     public Map<String, Object> checkAndReadJwtByClient(HttpServletRequest request)
             throws UserNotLoggedException, UnsupportedEncodingException {
+        if(request == null) {
+            return null;
+        }
         String jwt = JwtUtils.getJwtFromHttpRequest(request);
         if(jwt == null){
             throw new UserNotLoggedException("Authentication token not found in the request");
