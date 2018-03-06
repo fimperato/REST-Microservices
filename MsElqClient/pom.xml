@@ -125,8 +125,11 @@
                     <excludes>
                         <exclude>**/*it/imperato/test/ms/exceptions/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/configurations/**/*</exclude>
+                        <exclude>**/*it/imperato/test/ms/services/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/model/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/utils/**/*</exclude>
+                        <exclude>**/*it/imperato/test/ms/*App*</exclude> <!-- Spring boot Application -->
+                        <exclude>**/*it/imperato/test/ms/**/*Sample*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
