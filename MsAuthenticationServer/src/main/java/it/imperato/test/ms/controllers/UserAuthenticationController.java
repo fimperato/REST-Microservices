@@ -44,7 +44,7 @@ public class UserAuthenticationController {
         return "userAuthentication controller ready.";
     }
 
-    @AllArgsConstructor
+    /*@AllArgsConstructor
     public class UserJwtInfoResponseBody implements Serializable {
         @Getter @Setter
         private int serverCode;
@@ -54,7 +54,7 @@ public class UserAuthenticationController {
         private User user;
         @Getter @Setter
         private String message;
-    }
+    }*/
 
     @AllArgsConstructor
     public class UserInMemJwtInfoResponseBody implements Serializable {

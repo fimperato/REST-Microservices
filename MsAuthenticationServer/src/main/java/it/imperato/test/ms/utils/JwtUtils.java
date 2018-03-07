@@ -95,7 +95,7 @@ public class JwtUtils {
      */
     public static String getJwtFromHttpHeaders(HttpHeaders headers){
         String jwt = null;
-        if(headers.get("jwt") != null) {
+        if(headers != null && headers.get("jwt") != null) {
             jwt = headers.get("jwt").get(0); // token present in HttpHeaders
         }
         return jwt;
