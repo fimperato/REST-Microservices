@@ -97,15 +97,11 @@ public class UserAuthenticationController {
         catch(ExpiredJwtException jwtEx){
             String msg = "Session Expired! ";
             log.error(msg + jwtEx.toString(), jwtEx);
-            return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(
-                    new UserInMemJwtInfoResponseBody( HttpStatus.GATEWAY_TIMEOUT.value(),
-                            "", null, msg ));
+            return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new UserInMemJwtInfoResponseBody( HttpStatus.GATEWAY_TIMEOUT.value(),"", null, msg ));
         } catch (UnsupportedEncodingException unsEx) {
             String msg = "Unsupported operation! ";
             log.error(msg + unsEx.toString(), unsEx);
-            return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(
-                    new UserInMemJwtInfoResponseBody( HttpStatus.GATEWAY_TIMEOUT.value(),
-                            "",null, msg ));
+            return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new UserInMemJwtInfoResponseBody( HttpStatus.GATEWAY_TIMEOUT.value(),"",null, msg ));
         }
     }
 

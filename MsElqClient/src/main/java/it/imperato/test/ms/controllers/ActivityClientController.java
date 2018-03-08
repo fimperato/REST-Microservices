@@ -25,6 +25,7 @@ public class ActivityClientController {
 
     @RequestMapping("/activityController")
     public String activityController(){
+
         return "ActivityClientController (Client) ready.";
     }
 

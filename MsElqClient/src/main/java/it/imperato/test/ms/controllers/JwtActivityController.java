@@ -55,31 +55,32 @@ public class JwtActivityController {
     public ResponseEntity<ActivityResponseBody> getActivities(
             @PathVariable(name = "contactId") String contactId,
             @RequestHeader HttpHeaders httpHeaders){
-        HttpHeaders reqHeaders = new HttpHeaders();
-
-        //reqHeaders.add("Authorization", authorization);
-        String jwtRequestHeaderValue = httpHeaders.get("jwt") != null ? (String) httpHeaders.get("jwt").get(0) : null;
-        if(jwtRequestHeaderValue==null) {
-            // verifico su db per informazione precedentemente memorizzata
-            JwtTokenInfo jwtTokenInfo = myAuthService.findValidToken();
-            jwtRequestHeaderValue = jwtTokenInfo!=null?jwtTokenInfo.getJwt():null;
-        }
-        reqHeaders.add("jwt", jwtRequestHeaderValue);
-
-        reqHeaders.setContentType(MediaType.APPLICATION_JSON);
-        reqHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));
-
-        // create the request body
-        String activityType="Completed", name="", assetType="Email";
-        ActivityRequestBody reqBody = new ActivityRequestBody();
-        reqBody.setActivityType(activityType);
-        reqBody.setAssetType(assetType);
-        int cId = contactId!=null&&!contactId.isEmpty()?Integer.valueOf(contactId):0;
-        reqBody.setContactId(cId);
-        reqBody.setName(name);
-
-        HttpEntity<ActivityRequestBody> entity = new HttpEntity<ActivityRequestBody>(reqBody, reqHeaders);
         try {
+            HttpHeaders reqHeaders = new HttpHeaders();
+
+            //reqHeaders.add("Authorization", authorization);
+            String jwtRequestHeaderValue = httpHeaders.get("jwt") != null ? (String) httpHeaders.get("jwt").get(0) : null;
+            if(jwtRequestHeaderValue==null) {
+                // verifico su db per informazione precedentemente memorizzata
+                JwtTokenInfo jwtTokenInfo = myAuthService.findValidToken();
+                jwtRequestHeaderValue = jwtTokenInfo!=null?jwtTokenInfo.getJwt():null;
+            }
+            reqHeaders.add("jwt", jwtRequestHeaderValue);
+
+            reqHeaders.setContentType(MediaType.APPLICATION_JSON);
+            reqHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));
+
+            // create the request body
+            String activityType="Completed", name="", assetType="Email";
+            ActivityRequestBody reqBody = new ActivityRequestBody();
+            reqBody.setActivityType(activityType);
+            reqBody.setAssetType(assetType);
+            int cId = contactId!=null&&!contactId.isEmpty()?Integer.valueOf(contactId):0;
+            reqBody.setContactId(cId);
+            reqBody.setName(name);
+
+            HttpEntity<ActivityRequestBody> entity = new HttpEntity<ActivityRequestBody>(reqBody, reqHeaders);
+
             String dataUrl = ConstantsApp.JWT_AUTH_TYPE_URL + ConstantsApp.ACTIVITIES_DATA_URL;
             ResponseEntity<Activity[]> response =
                     restTemplate.exchange(ConstantsApp.RESOURCE_SERVER_BASE_URL + dataUrl + String.valueOf(cId),
