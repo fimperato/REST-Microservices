@@ -35,6 +35,7 @@ public class ActivityWithJwtController {
 
     @RequestMapping("/activityController")
     public String activityControllerTest(){
+
         return "ActivityController (with JWT) ready.";
     }
 

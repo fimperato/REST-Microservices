@@ -1,7 +1,5 @@
 package it.imperato.test.ms.controllers;
 
-import it.imperato.test.ms.model.restbean.Activity;
-import it.imperato.test.ms.model.restbean.ActivityResponseBody;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,27 +10,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.security.Principal;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:test.properties")
-public class ActivityClientControllerTest {
+public class HomeControllerTest {
 
     @Autowired
-    ActivityClientController activityClientController;
+    HomeController homeController;
 
     @Test
-    public void jwtActivityController(){
-        String res = activityClientController.activityController();
-        Assert.assertEquals("ActivityClientController (Client) ready.",res);
+    public void getHomeController(){
+        String res = homeController.getHomeController();
+        Assert.assertEquals("Home Controller ready.",res);
     }
 
     @Test
-    public void getActivities(){
-        ResponseEntity<List<Activity>> res =
-                activityClientController.getActivities("1", true);
-        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
+    public void user(){
+        Principal res = homeController.user(null);
+        Assert.assertNull(res);
+    }
+
+    @Test
+    public void extractActivitiesMock() {
+        ResponseEntity<?> res =
+                homeController.send403();
+        Assert.assertEquals(HttpStatus.FORBIDDEN, res.getStatusCode());
     }
 
 }

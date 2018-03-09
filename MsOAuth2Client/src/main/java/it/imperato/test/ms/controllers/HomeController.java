@@ -16,10 +16,13 @@ public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
     @RequestMapping("/")
-    public String getHomeController(){ return "Home Controller ready."; }
+    public String getHomeController(){
+        return "Home Controller ready.";
+    }
 
     @RequestMapping("/403")
     public String accessDenied() {
+
         return "errors/403";
     }
 
@@ -33,6 +36,7 @@ public class HomeController {
 
     @RequestMapping(value = "/test/send403", method = RequestMethod.GET)
     public ResponseEntity<?> send403() {
+
         return new ResponseEntity<Object>(null, HttpStatus.FORBIDDEN);
     }
 

@@ -19,13 +19,14 @@ public class CustomErrorController
 
     private static final Logger log = LoggerFactory.getLogger(CustomErrorController.class);
 
-    private static final String PATH = "/error";
+    public static final String PATH = "/error";
 
     @Autowired
     GlobalProperties globalProperties;
 
     @Override
     public String getErrorPath() {
+
         return PATH;
     }
 

@@ -129,6 +129,8 @@
                         <exclude>**/*it/imperato/test/ms/model/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/utils/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/daos/**/*</exclude>
+                        <exclude>**/*it/imperato/test/ms/controllers/facebook/**/*</exclude>
+                        <exclude>**/*it/imperato/test/ms/controllers/google/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/*Properties*</exclude> 
                         <exclude>**/*it/imperato/test/ms/repository/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/*App*</exclude> <!-- Spring boot Application -->
