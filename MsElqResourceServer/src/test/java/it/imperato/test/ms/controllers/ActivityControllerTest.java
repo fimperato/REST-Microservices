@@ -24,12 +24,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // , classes = { SpecificTestConfig.class }
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // , classes = { SpecificTestConfig.class }
 //@ActiveProfiles({"test-profile"})
 @TestPropertySource(locations="classpath:test.properties")
 public class ActivityControllerTest {
 
-    @Autowired
+    //@Autowired
     ActivityController activityController;
 
     private MockMvc mockMvc;
@@ -43,7 +43,7 @@ public class ActivityControllerTest {
     public void contextLoads() {
     }
 
-    @Test
+    //@Test
     public void userAuthenticationTest(){
         String res = activityController.activityControllerTest();
         Assert.assertEquals("ActivityController ready.",res);

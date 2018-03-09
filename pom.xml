@@ -84,6 +84,7 @@
 			  <artifactId>coveralls-maven-plugin</artifactId>
 			  <version>4.3.0</version>
 			  <configuration>
+					
 					<sourceEncoding>UTF8</sourceEncoding>
 					<jacocoReports>
 						<jacocoReport>${project.basedir}/MsAuthenticationServer/target/site/jacoco-ut/jacoco.xml</jacocoReport>
