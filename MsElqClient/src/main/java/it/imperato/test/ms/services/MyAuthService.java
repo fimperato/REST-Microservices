@@ -21,6 +21,8 @@ public interface MyAuthService {
 
     JwtTokenInfo updateToken(UserJwtInfoResponse userJwtInfoResponse);
 
+    JwtTokenInfo updateToken(JwtTokenInfo jwtTokenInfo);
+
     JwtTokenInfo findValidToken();
 
 }

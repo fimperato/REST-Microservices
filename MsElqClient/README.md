@@ -29,3 +29,9 @@ Contact (id) = 14
 ```
 http://localhost:8086/activity/getActivities/14?isMock=false
 ```
+
+###### Start mongodb:
+
+```
+C:\Program Files\MongoDB\Server\3.4\bin>mongod --dbpath C:\mongodb_data\ms18_data
+```

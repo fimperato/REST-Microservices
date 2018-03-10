@@ -336,6 +336,117 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "/jwt/saveJwtInfoValidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "jwt",
+									"value": "ABC1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "createdAt",
+									"value": "10/3/2017",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "system",
+									"value": "MS_APP_CLIENT",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "valid",
+									"value": "true",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8086/jwt/saveJwtInfoValidate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"jwt",
+								"saveJwtInfoValidate"
+							]
+						},
+						"description": "Validator custom"
+					},
+					"response": []
+				},
+				{
+					"name": "/jwt/saveJwtInfo (spring validation test)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "jwt",
+									"value": "ABC1234567890",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "createdAt",
+									"value": "10/3/2017",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "system",
+									"value": "MS_APP_CLIENT",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "valid",
+									"value": "true",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8086/jwt/saveJwtInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"jwt",
+								"saveJwtInfo"
+							]
+						},
+						"description": "Validator custom"
+					},
+					"response": []
 				}
 			]
 		},
@@ -404,6 +515,107 @@
 							]
 						},
 						"description": "da lanciare dopo aver prelevato il jwt valido da /jwt/loginUserMock REST service"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MS18_msOauth2",
+			"description": "",
+			"item": [
+				{
+					"name": "google.com/o/oauth2/v2/auth GET",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ya29.GlxzBULub-nfUxTXBlHIvQZz9xnFmUseOalnQcOYk-KCF-7bw8V0NuPq8YCB4cDJTDdNh679OZln4QI5g7MNFsWpLmPMo5Cr5Fl0rDo7G4W-R7qWvQimbI2xlFnYLw"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://www.googleapis.com/userinfo/v2/me",
+							"protocol": "https",
+							"host": [
+								"www",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"userinfo",
+								"v2",
+								"me"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "googleapis.com/oauth2/v4/token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "code",
+									"value": "4/AAC[code]",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "<clientid>",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "<clientsecret>",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8088/login/google",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://www.googleapis.com/oauth2/v4/token",
+							"protocol": "https",
+							"host": [
+								"www",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"oauth2",
+								"v4",
+								"token"
+							]
+						},
+						"description": ""
 					},
 					"response": []
 				}
