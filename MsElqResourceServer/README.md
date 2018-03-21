@@ -11,6 +11,7 @@ https://docs.oracle.com/cloud/latest/marketingcs_gs/OMCAC/op-api-REST-1.0-data-a
 * MongoDB
 * JWT
 * Maven
+* Swagger 2
   
 ###### Start mongodb:
 
@@ -52,3 +53,8 @@ switched to db msAppElqServerDB
 })
 ```
 
+###### Use Swagger 2:
+
+```
+http://[springboot-app-host]:[port]/swagger-ui.html
+```

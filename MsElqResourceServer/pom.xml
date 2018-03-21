@@ -17,6 +17,7 @@
         <lombok.version>1.16.20</lombok.version>
         <jjwt.version>0.9.0</jjwt.version>
         <jasypt.version>1.9.2</jasypt.version>
+        <swagger.version>2.7.0</swagger.version>
 
         <jdk.version>1.8</jdk.version>
         <jacoco.version>0.7.9</jacoco.version>
@@ -300,6 +301,17 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
             <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!-- test -->
