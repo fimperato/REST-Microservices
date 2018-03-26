@@ -1,0 +1,1 @@
+Main-Class: it.imperato.test.ms.MyApplication

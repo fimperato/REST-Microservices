@@ -40,4 +40,6 @@ port: 8088
 * JWT
 * OAuth 2.0 (provider: Facebook, Google)
 * Maven
+* Swagger 2
+* Docker container
   

@@ -63,7 +63,7 @@
     </profiles>
 
     <build>
-        <finalName>maven-integration-testing</finalName>
+        <finalName>MsAuthenticationServer</finalName>
         <filters>
             <filter>profiles/${build.profile.id}/config.properties</filter>
         </filters>

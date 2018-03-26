@@ -58,3 +58,11 @@ switched to db msAppElqServerDB
 ```
 http://[springboot-app-host]:[port]/swagger-ui.html
 ```
+
+###### docker:
+[local-path]\MsElqResourceServer>docker build -t mselq_resource_server_docker .
+
+[local-path]\MsElqResourceServer>docker run -d -p 8095:8085 mselq_resource_server_docker
+
+###### docker test:
+http://192.168.99.100:8095/api/REST/1.0/data/activityController
