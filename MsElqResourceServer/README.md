@@ -12,7 +12,8 @@ https://docs.oracle.com/cloud/latest/marketingcs_gs/OMCAC/op-api-REST-1.0-data-a
 * JWT
 * Maven
 * Swagger 2
-  
+* Docker 
+
 ###### Start mongodb:
 
 ```
@@ -60,9 +61,25 @@ http://[springboot-app-host]:[port]/swagger-ui.html
 ```
 
 ###### docker:
+```
 [local-path]\MsElqResourceServer>docker build -t mselq_resource_server_docker .
 
 [local-path]\MsElqResourceServer>docker run -d -p 8095:8085 mselq_resource_server_docker
+```
+
+###### docker compose with mongo image
+```
+[project path]>docker-compose up
+```
+
+Options con .env file o con il comando (dove <command> è up in tal caso):
+```
+LOCAL_IP=<your ip here> ENV2=$ENV2 ENVn=$ENVn docker-compose <command>
+```
 
 ###### docker test:
-http://192.168.99.100:8095/api/REST/1.0/data/activityController
+Endpoint per testare lo start del container:
+
+```
+http://192.168.99.100:8085/api/REST/1.0/data/activityController
+```

@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  springboot:
+    image: ms_elq_resource_server:latest
+    build: .
+    restart: always
+    container_name: mselq_resource_server
+    env_file:
+      - $HOME/dockerfiles/config/.env
+    extra_hosts:
+      - localhost:${LOCAL_IP}
+    environment:
+      - DATABASE_URL=postgres://postgres:postgresql1@localhost:5432/myschema
+    ports:
+      - 8085:8085
+    depends_on:
+      - mongo_mselq_server
+  
+  mongo_mselq_server:
+    image: mongo
+    container_name: mongo_mselq_server
+    ports:  # for demo/debug purpose only
+       - 27017:27017
+    volumes:
+      - $HOME/mongodb_data/docker_data:/datamongo/db:rw
+      - $HOME/mongodb_data/docker_data:/datamongo/bkp:rw
+    restart: always
+
