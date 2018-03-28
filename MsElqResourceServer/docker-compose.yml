@@ -18,12 +18,20 @@ services:
       - mongo_mselq_server
   
   mongo_mselq_server:
-    image: mongo
+    image: mongo:latest
     container_name: mongo_mselq_server
     ports:  # for demo/debug purpose only
        - 27017:27017
     volumes:
-      - $HOME/mongodb_data/docker_data:/datamongo/db:rw
-      - $HOME/mongodb_data/docker_data:/datamongo/bkp:rw
+      - $HOME/mongodb_data/docker_data:/mongodb_data/docker_data
     restart: always
+
+  mongoclient:
+    image: mongoclient/mongoclient:latest
+    container_name: mongoclient
+    hostname: mongoclient
+    depends_on:
+      - mongo_mselq_server
+    ports:
+      - 3300:3000
 

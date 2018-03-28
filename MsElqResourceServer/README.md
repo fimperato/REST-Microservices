@@ -77,9 +77,26 @@ Options con .env file o con il comando (dove <command> è up in tal caso):
 LOCAL_IP=<your ip here> ENV2=$ENV2 ENVn=$ENVn docker-compose <command>
 ```
 
+Nota su data volume con mongoDB e virtualBox:
+```
+MongoDB requires a filesystem that supports fsync() on directories. For example, HGFS and Virtual Box’s shared folders do not support this operation.
+```
+
 ###### docker test:
 Endpoint per testare lo start del container:
 
 ```
 http://192.168.99.100:8085/api/REST/1.0/data/activityController
+```
+
+Check sui dati presenti sul db nosql del container attraverso un client verso:
+```
+host: 192.168.99.100
+host: mongo_mselq_server
+port: 27017
+```
+
+Ispezione dei dati possibile anche attraverso il mongoclient su docker container (da compose):
+```
+http://192.168.99.100:3300/browseCollection
 ```
