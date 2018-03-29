@@ -1,8 +1,10 @@
 package it.imperato.test.ms.controllers;
 
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.model.restbean.Activity;
 import it.imperato.test.ms.model.restbean.ActivityRequestBody;
 import it.imperato.test.ms.utils.ConstantsApp;
+import jdk.nashorn.internal.objects.Global;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -22,6 +24,9 @@ public class ActivityClientController {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    GlobalProperties globalProperties;
 
     @RequestMapping("/activityController")
     public String activityController(){
@@ -61,7 +66,7 @@ public class ActivityClientController {
         try {
             String dataUrl = isMock ? ConstantsApp.MOCK_ACTIVITIES_DATA_URL : ConstantsApp.ACTIVITIES_DATA_URL;
             ResponseEntity<Activity[]> response =
-                    restTemplate.exchange(ConstantsApp.RESOURCE_SERVER_BASE_URL + dataUrl + String.valueOf(cId),
+                    restTemplate.exchange(globalProperties.getResourceServerBaseUrl() + dataUrl + String.valueOf(cId),
                             HttpMethod.POST, entity, Activity[].class);
 
             List<Activity> acts = Arrays.asList(response.getBody());

@@ -5,6 +5,7 @@ import it.imperato.test.ms.model.restbean.ActivityRBean;
 import it.imperato.test.ms.model.restbean.ActivityBodyRBean;
 import it.imperato.test.ms.services.ActivityService;
 import lombok.extern.java.Log;
+import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,17 +66,22 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> extractActivities(
             @RequestBody ActivityBodyRBean reqBody, @PathVariable(name = "contactId", required = false) String contactId){
         try {
+            log.info("*** [ELQSERVER] input ActivityBodyRBean: "+reqBody);
+            log.info("*** [ELQSERVER] input contactId: "+contactId);
             contactId = (contactId==null||"0".equals(contactId))&&(reqBody!=null&&reqBody.getContactId()!=null) ?
                     String.valueOf(reqBody.getContactId()):contactId;
             if(contactId != null) {
                 List<Activity> activities = activityService.findByContact(contactId);
+                log.info("*** [ELQSERVER] found activities: "+(activities==null?"0":activities.size()));
                 return ResponseEntity.status(HttpStatus.OK).header("header-info", "NO-INFO")
                         .body(activities);
             }
         }
         catch(Exception ex) {
+            log.log(java.util.logging.Level.SEVERE,"*** [ELQSERVER] Exception: "+ex.getMessage(),ex);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+        log.info("*** [ELQSERVER] anomaly end method extractActivities. ");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 

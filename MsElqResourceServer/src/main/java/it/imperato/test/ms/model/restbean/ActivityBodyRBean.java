@@ -18,4 +18,13 @@ public class ActivityBodyRBean {
     @Getter @Setter
     private Integer contactId;
 
+    @Override
+    public String toString() {
+        return "ActivityBodyRBean{" +
+                "name='" + name + '\'' +
+                ", assetType='" + assetType + '\'' +
+                ", activityType='" + activityType + '\'' +
+                ", contactId=" + contactId +
+                '}';
+    }
 }

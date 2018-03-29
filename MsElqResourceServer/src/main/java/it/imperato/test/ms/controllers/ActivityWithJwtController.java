@@ -50,24 +50,31 @@ public class ActivityWithJwtController {
             @RequestBody ActivityBodyRBean reqBody,
             @PathVariable(name = "contactId", required = false) String contactId){
         try {
+            log.info("*** [ELQSERVER] /api/JWT/REST/ ; input headers: "+headers);
+            log.info("*** [ELQSERVER] /api/JWT/REST/ ; input ActivityBodyRBean: "+reqBody);
+            log.info("*** [ELQSERVER] /api/JWT/REST/ ; input contactId: "+contactId);
             jwtAuthService.checkJwt(headers);
             contactId = (contactId==null||"0".equals(contactId))&&(reqBody!=null&&reqBody.getContactId()!=null) ?
                     String.valueOf(reqBody.getContactId()):contactId;
             if(contactId != null) {
                 List<Activity> activities = activityService.findByContact(contactId);
+                log.info("*** [ELQSERVER] found activities: "+(activities==null?"0":activities.size()));
                 return ResponseEntity.status(HttpStatus.OK).header("header-info", "NO-INFO")
                         .body(activities);
             }
         }
         catch(UserNotLoggedException ex) {
+            log.log(java.util.logging.Level.SEVERE,"*** [ELQSERVER] UserNotLoggedException: "+ex.getMessage(),ex);
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
         catch(UnsupportedEncodingException | MalformedJwtException | ExpiredJwtException ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
         catch(Exception ex) {
+            log.log(java.util.logging.Level.SEVERE,"*** [ELQSERVER] Exception: "+ex.getMessage(),ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+        log.info("*** [ELQSERVER] /api/JWT/REST/ ; anomaly end method extractActivities. ");
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 

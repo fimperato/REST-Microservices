@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  springboot:
+    image: ms_elq_client:latest
+    build: .
+    restart: always
+    container_name: mselq_client
+    env_file:
+      - $HOME/dockerfiles/config/.env
+    extra_hosts:
+      - localhost:${LOCAL_IP}
+    environment:
+      - DATABASE_URL=postgres://postgres:postgresql1@localhost:5432/postgres
+    ports:
+      - 8086:8086
+    depends_on:
+      - mongo_mselq_client
+  
+  mongo_mselq_client:
+    image: mongo:latest
+    container_name: mongo_mselq_client
+    command: mongod --port 27018
+    ports:  # for demo/debug purpose only
+       - "27018:27018"
+    volumes:
+      - $HOME/mongodb_data/docker_data/mselq_client:/mongodb_data/docker_data/mselq_client
+    restart: always

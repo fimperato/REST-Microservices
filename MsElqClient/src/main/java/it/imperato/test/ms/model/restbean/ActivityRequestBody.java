@@ -18,4 +18,13 @@ public class ActivityRequestBody {
     @Getter @Setter
     private Integer contactId;
 
+    @Override
+    public String toString() {
+        return "ActivityRequestBody{" +
+                "name='" + name + '\'' +
+                ", assetType='" + assetType + '\'' +
+                ", activityType='" + activityType + '\'' +
+                ", contactId=" + contactId +
+                '}';
+    }
 }

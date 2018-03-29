@@ -29,13 +29,13 @@ public class PostgresDataHomeController {
 
   @GetMapping(value = "/postgresInit")
   public ResponseEntity<String> postgresInit() {
-    return ResponseEntity.ok().body("Postresql init [MSELQSERVER].");
+    return ResponseEntity.ok().body("Postresql init [MSELQCLIENT].");
   }
 
   @PostMapping(value = "/user/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AppUser> create(@PathVariable String username) {
     AppUser appUser = new AppUser();
-    appUser.setUsername(username);
+    appUser.setUsername(username+"_[MSELQCLIENT]");
     AppUser saved = userRepository.save(appUser);
     return ResponseEntity.ok().body(saved);
   }

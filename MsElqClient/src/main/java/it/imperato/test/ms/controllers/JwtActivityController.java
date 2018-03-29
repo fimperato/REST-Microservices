@@ -2,6 +2,7 @@ package it.imperato.test.ms.controllers;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.model.entities.JwtTokenInfo;
 import it.imperato.test.ms.model.restbean.Activity;
 import it.imperato.test.ms.model.restbean.ActivityRequestBody;
@@ -38,6 +39,9 @@ public class JwtActivityController {
 
     @Autowired
     MyAuthService myAuthService;
+
+    @Autowired
+    GlobalProperties globalProperties;
 
     @RequestMapping("/jwtActivityController")
     public String jwtActivityController(){
@@ -81,8 +85,11 @@ public class JwtActivityController {
             HttpEntity<ActivityRequestBody> entity = new HttpEntity<ActivityRequestBody>(reqBody, reqHeaders);
 
             String dataUrl = ConstantsApp.JWT_AUTH_TYPE_URL + ConstantsApp.ACTIVITIES_DATA_URL;
+            log.info("****** Complete URL: "+globalProperties.getResourceServerBaseUrl() + dataUrl + String.valueOf(cId));
+            log.info("****** jwtRequestHeaderValue: "+jwtRequestHeaderValue);
+            log.info("****** ActivityRequestBody: "+reqBody.toString());
             ResponseEntity<Activity[]> response =
-                    restTemplate.exchange(ConstantsApp.RESOURCE_SERVER_BASE_URL + dataUrl + String.valueOf(cId),
+                    restTemplate.exchange(globalProperties.getResourceServerBaseUrl() + dataUrl + String.valueOf(cId),
                             HttpMethod.POST, entity, Activity[].class);
 
             List<Activity> acts = Arrays.asList(response.getBody());

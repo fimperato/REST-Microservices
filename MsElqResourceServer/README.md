@@ -61,6 +61,12 @@ http://[springboot-app-host]:[port]/swagger-ui.html
 ```
 
 ###### docker:
+*Maven project. Passare il local ip come parametro all'application properties
+```
+mvn clean package -Dmaven.test.skip=true -DLOCAL_IP=<your local ip>
+```
+
+Single container in docker file:
 ```
 [local-path]\MsElqResourceServer>docker build -t mselq_resource_server_docker .
 
@@ -72,7 +78,7 @@ http://[springboot-app-host]:[port]/swagger-ui.html
 [project path]>docker-compose up
 ```
 
-Options con .env file o con il comando (dove <command> è up in tal caso):
+*Options con .env file o con il comando (dove <command> è up in tal caso):
 ```
 LOCAL_IP=<your ip here> ENV2=$ENV2 ENVn=$ENVn docker-compose <command>
 ```
@@ -99,4 +105,10 @@ port: 27017
 Ispezione dei dati possibile anche attraverso il mongoclient su docker container (da compose):
 ```
 http://192.168.99.100:3300/browseCollection
+```
+
+###### postgresql (external) db:
+Test start up con l'endpoint (192.168.99.100 default ip docker container):
+```
+http://192.168.99.100:[docker-app-port]/postgres/users
 ```

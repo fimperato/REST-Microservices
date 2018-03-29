@@ -1,5 +1,6 @@
 package it.imperato.test.ms.controllers;
 
+import it.imperato.test.ms.app.GlobalProperties;
 import it.imperato.test.ms.model.entities.JwtTokenInfo;
 import it.imperato.test.ms.model.pojo.User;
 import it.imperato.test.ms.model.pojo.UserJwtInfoResponse;
@@ -37,6 +38,9 @@ public class AuthJwtController {
     @Autowired
     MyAuthService myAuthService;
 
+    @Autowired
+    GlobalProperties globalProperties;
+
     @RequestMapping("/authJwtController")
     public String authJwtController(){
         return "AuthJwtController (Client) ready.";
@@ -60,7 +64,7 @@ public class AuthJwtController {
         try {
             String dataUrl = ConstantsApp.JWT_RETRIEVE_INFO_MOCK;
             ResponseEntity<UserJwtInfoResponse> response =
-                    restTemplate.exchange(ConstantsApp.AUTH_SERVER_BASE_URL + dataUrl,
+                    restTemplate.exchange(globalProperties.getAuthServerBaseUrl() + dataUrl,
                             HttpMethod.POST, entity, UserJwtInfoResponse.class);
 
             // save mongodb response
