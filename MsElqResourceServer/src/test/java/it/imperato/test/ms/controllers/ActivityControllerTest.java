@@ -54,14 +54,14 @@ public class ActivityControllerTest {
     public void extractActivitiesMock() {
         ResponseEntity<List<ActivityRBean>> res =
                 activityController.extractActivitiesMock(null,"");
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, res.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK, res.getStatusCode()); // without mongodb connection up -> HttpStatus.BAD_REQUEST
     }
 
     @Test
     public void extractActivities() {
         ResponseEntity<List<Activity>> res =
                 activityController.extractActivities(null,"");
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, res.getStatusCode());
+        Assert.assertEquals(HttpStatus.OK, res.getStatusCode()); // without mongodb connection up -> HttpStatus.BAD_REQUEST
     }
 
 }
