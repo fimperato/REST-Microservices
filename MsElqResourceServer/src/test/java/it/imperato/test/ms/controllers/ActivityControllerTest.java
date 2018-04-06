@@ -26,10 +26,11 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // , classes = { SpecificTestConfig.class }
 //@ActiveProfiles({"test-profile"})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:test.properties")
 public class ActivityControllerTest {
 
-    //@Autowired
+    @Autowired
     ActivityController activityController;
 
     private MockMvc mockMvc;
@@ -43,20 +44,20 @@ public class ActivityControllerTest {
     public void contextLoads() {
     }
 
-    //@Test
+    @Test
     public void userAuthenticationTest(){
         String res = activityController.activityControllerTest();
         Assert.assertEquals("ActivityController ready.",res);
     }
 
-    //@Test
+    @Test
     public void extractActivitiesMock() {
         ResponseEntity<List<ActivityRBean>> res =
                 activityController.extractActivitiesMock(null,"");
         Assert.assertEquals(HttpStatus.BAD_REQUEST, res.getStatusCode());
     }
 
-    //@Test
+    @Test
     public void extractActivities() {
         ResponseEntity<List<Activity>> res =
                 activityController.extractActivities(null,"");

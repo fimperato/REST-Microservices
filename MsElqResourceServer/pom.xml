@@ -138,7 +138,6 @@
                         <exclude>**/*it/imperato/test/ms/exceptions/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/configurations/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/controllers/*Postgres*</exclude>
-                        <exclude>**/*it/imperato/test/ms/controllers/*Jwt*</exclude>
                         <exclude>**/*it/imperato/test/ms/services/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/model/**/*</exclude>
                         <exclude>**/*it/imperato/test/ms/utils/**/*</exclude>
