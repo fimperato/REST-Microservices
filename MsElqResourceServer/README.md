@@ -8,7 +8,7 @@ https://docs.oracle.com/cloud/latest/marketingcs_gs/OMCAC/op-api-REST-1.0-data-a
 
 * Spring Boot 2
 * Spring Data
-* MongoDB
+* MongoDB (local, database-as-a-service version)
 * JWT
 * Maven
 * Swagger 2
@@ -68,9 +68,9 @@ mvn clean package -Dmaven.test.skip=true -DLOCAL_IP=<your local ip>
 
 Single container in docker file:
 ```
-[local-path]\MsElqResourceServer>docker build -t mselq_resource_server_docker .
+[local-path]\MsElqResourceServer>docker build -t ms_elq_resource_server .
 
-[local-path]\MsElqResourceServer>docker run -d -p 8095:8085 mselq_resource_server_docker
+[local-path]\MsElqResourceServer>docker run -d -p 8095:8085 ms_elq_resource_server
 ```
 
 ###### docker compose with mongo image
@@ -112,3 +112,20 @@ Test start up con l'endpoint (192.168.99.100 default ip docker container):
 ```
 http://192.168.99.100:[docker-app-port]/postgres/users
 ```
+
+###### tag e publish docker image:
+
+    [local-path]\MsElqResourceServer>docker build --tag fimperato/ms_elq_resource_server:v1.1 .
+
+Inserimento di user e password del proprio repo docker:
+ 
+    [local-path]\MsElqResourceServer>docker login
+    
+Push della specifica tag version su repo docker:
+   
+    [local-path]\MsElqResourceServer>docker push fimperato/ms_elq_resource_server:v1.1
+    
+Image docker disponibile alla seguente directory repo:
+
+    https://hub.docker.com/r/fimperato/ms_elq_resource_server/
+

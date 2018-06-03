@@ -4,7 +4,7 @@
 
 * Spring Boot 2
 * Spring Data
-* MongoDB
+* MongoDB (local, database-as-a-service version)
 * JWT
 * Maven
   
