@@ -124,14 +124,12 @@ Test di chiamata al 'some-service-name' tramite IP e porta del nodo
 
 	result: "Hello Kubernetes!"
 
-	> $ kubectl delete service,deployment my-test-node && minikube stop
-
 A operazioni concluse, stop service, deployment, kubernetes cluster e rilascio delle risorse:
 
-	> $ kubectl delete service,deployment my-test-node && minikube stop
+	> $ kubectl delete service,deployment some-service-name && minikube stop
 
-	service "my-test-node" deleted
-	deployment.extensions "my-test-node" deleted
+	service "some-service-name" deleted
+	deployment.extensions "some-service-name" deleted
 	Stopping local Kubernetes cluster...
 	Machine stopped.
 
