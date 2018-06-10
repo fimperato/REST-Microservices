@@ -126,3 +126,13 @@ Test di chiamata al 'some-service-name' tramite IP e porta del nodo
 
 	> $ kubectl delete service,deployment my-test-node && minikube stop
 
+A operazioni concluse, stop service, deployment, kubernetes cluster e rilascio delle risorse:
+
+	> $ kubectl delete service,deployment my-test-node && minikube stop
+
+	service "my-test-node" deleted
+	deployment.extensions "my-test-node" deleted
+	Stopping local Kubernetes cluster...
+	Machine stopped.
+
+
