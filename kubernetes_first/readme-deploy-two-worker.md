@@ -105,6 +105,7 @@ ReplicaSet informazioni:
 	Events:                   <none>
 
 I node in kubernetes sono i worker su cui parte l'applicazione. In minikube vi è un singolo nodo quindi l'output sarà come il seguente (altrimenti avremmo avuto due worker differenti per le due righe alla colonna node):
+
 Rif. "Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node [...]"; https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/
 
 	>$ kubectl get pods --selector="run=load-balancer-example" --output=wide
@@ -113,7 +114,7 @@ Rif. "Minikube is a lightweight Kubernetes implementation that creates a VM on y
 	hello-world-5b446dd74b-dbzv9   1/1       Running   0          16m       xxx.xx.0.5   minikube
 	hello-world-5b446dd74b-sbv4w   1/1       Running   0          16m       xxx.xx.0.4   minikube
 
-Verifico vi siano 2 pod in running con name "hello-..":
+Check presenza di 2 pod in running con name "hello-..":
 
 	>$ kubectl get pods | grep hello- | wc -l
 
