@@ -17,3 +17,5 @@ target/
 
 
 .coveralls.yml
+/.metadata/
+.metadata/

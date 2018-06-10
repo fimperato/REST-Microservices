@@ -14,12 +14,17 @@
 	<module>MsAuthenticationServer</module>
 	<module>MsElqClient</module>
 	<module>MsElqResourceServer</module>
-    <module>MsOAuth2Client</module>
+    	<module>MsOAuth2Client</module>
 	<module>MyMsOne</module>
-    <module>Ms-test</module>
-	
+    	<module>Ms-test</module>
   </modules>
   
+	<!-- 
+	Comando maven di start: 
+
+	  mvn clean compile package -Djavax.net.ssl.trustStorePassword=changeit -Dmaven.test.skip
+
+	-->
   <licenses>
         <license>
             <name>Apache License 2.0</name>
