@@ -1,11 +1,11 @@
-== Progettazione di microservizi: integrazione continua
+## Progettazione di microservizi: integrazione continua
 
 (Rif. https://docs.microsoft.com/it-it/azure/architecture/microservices/ci-cd)
 
 Integrazione continua e recapito continuo (CI/CD) sono un requisito chiave per la riuscita dei microservizi. Senza un processo CI/CD, non si otterrà la flessibilità offerta dai microservizi. Alcune problematiche di CI/CD per i microservizi derivano dalla presenza di più basi di codice e ambienti di compilazione eterogenei per i vari servizi. Questo capitolo descrive le problematiche e alcuni approcci consigliabili.
 
 
-![alt text](https://raw.githubusercontent.com/fimperato/REST-Microservices/blob/master/kubernetes-first/img/ci-cd.png)
+![alt text](https://raw.githubusercontent.com/fimperato/REST-Microservices/master/kubernetes_first/img/ci-cd.png)
 
 
 La maggiore rapidità dei cicli di rilascio è uno dei principali motivi per adottare un'architettura di microservizi.
@@ -14,7 +14,7 @@ In un'applicazione puramente monolitica esiste un'unica pipeline di compilazione
 Seguendo la filosofia dei microservizi, non è mai previsto un lungo processo di rilascio che richiede l'allineamento di ogni team. Il team che compila il servizio "A" può rilasciare un aggiornamento in qualsiasi momento, senza attendere che vengano unite, testate e distribuite modifiche nel servizio "B". Il processo CI/CD è essenziale per consentire tutto questo. La pipeline di versione deve essere automatizzata e altamente affidabile, in modo da ridurre al minimo i rischi associati alla distribuzione di aggiornamenti. Se il rilascio in produzione viene eseguito ogni giorno o più volte al giorno, le regressioni o le interruzioni dei servizi devono essere molto rare. Al tempo stesso, in caso di distribuzione di un aggiornamento non valido è necessario poter eseguire in modo rapido e affidabile il rollback o il rollforward a una versione precedente di un servizio.
 
 
-![alt text](https://raw.githubusercontent.com/fimperato/REST-Microservices/blob/master/kubernetes-first/img/cicd-monolith.png)
+![alt text](https://raw.githubusercontent.com/fimperato/REST-Microservices/master/kubernetes_first/img/cicd-monolith.png)
 
 
 L'espressione "CI/CD" viene usata per fare riferimento a diversi processi correlati: integrazione continua, recapito continuo e distribuzione continua.
@@ -26,7 +26,7 @@ L'espressione "CI/CD" viene usata per fare riferimento a diversi processi correl
 Nel contesto di Kubernetes e dei microservizi, la fase dell'integrazione continua riguarda la compilazione e il test di immagini di contenitori e il push di tali immagini in un registro contenitori. Nella fase della distribuzione, le specifiche dei pod vengono aggiornate in modo da usare l'immagine di produzione più recente.
 
 
-=== Problematiche
+### Problematiche
 
  * Molte basi di codice indipendenti di piccole dimensioni. Ogni team è responsabile della compilazione del proprio servizio, con una propria pipeline di compilazione. In alcune organizzazioni, i team possono usare repository di codice separati. È quindi possibile che le conoscenze per la compilazione del sistema siano distribuite tra i vari team e nessuno nell'organizzazione sappia come distribuire l'intera applicazione. Che cosa accade ad esempio in uno scenario di ripristino di emergenza, se è necessario eseguire rapidamente la distribuzione in un nuovo cluster?
  * Più linguaggi e framework. Se ogni team usa una propria combinazione di tecnologie, può essere difficile creare un unico processo di compilazione che possa essere usato nell'intera organizzazione. Il processo di compilazione deve essere sufficientemente flessibile da poter essere adattato da ogni team al linguaggio o al framework scelto.
@@ -37,7 +37,7 @@ Nel contesto di Kubernetes e dei microservizi, la fase dell'integrazione continu
 
 Queste problematiche rispecchiano una tensione di fondo. Da un lato, i team devono lavorare con la massima indipendenza possibile. Dall'altro, un certo coordinamento è necessario per consentire a una singola persona di eseguire attività come un test di integrazione, la ridistribuzione dell'intera soluzione in un nuovo cluster o il rollback di un aggiornamento non valido.
 
-=== Approcci CI/CD per i microservizi
+### Approcci CI/CD per i microservizi
 
 È consigliabile che il team di ogni servizio includa il proprio ambiente di compilazione in un contenitore e che in tale contenitore siano presenti tutti gli strumenti di compilazione necessari per compilare gli elementi di codice per il servizio. Spesso è disponibile un'immagine Docker ufficiale per il linguaggio e il framework. È quindi possibile usare docker run o Docker Compose per eseguire la compilazione.
 Con questo approccio, configurare un nuovo ambiente di compilazione è semplice. Uno sviluppatore che vuole compilare il proprio codice non deve necessariamente installare un set di strumenti di compilazione, ma esegue semplicemente l'immagine del contenitore. Un aspetto forse ancora più importante è che il server di compilazione può essere configurato per eseguire la stessa operazione. In questo modo, non è necessario installare tali strumenti nel server di compilazione o gestire versioni degli strumenti in conflitto.
@@ -60,11 +60,11 @@ Di seguito sono riportate alcune raccomandazioni per una maggiore affidabilità 
  * Definire convenzioni a livello di organizzazione per i tag dei contenitori, il controllo delle versioni e la denominazione delle risorse distribuite nel cluster (pod, servizi e così via). Questo può facilitare la diagnosi dei problemi di distribuzione.
  * Creare due registri contenitori separati, uno per sviluppo e test e uno per la produzione. Non eseguire il push di un'immagine nel registro per la produzione finché non si è pronti a distribuire l'immagine in produzione. Combinando questa procedura con il versionamento semantico delle immagini di contenitori è possibile ridurre le probabilità di distribuire accidentalmente una versione il cui rilascio non è stato approvato.
 
-=== Aggiornamento dei servizi
+### Aggiornamento dei servizi
 
 Esistono varie strategie per aggiornare un servizio già in produzione. Di seguito vengono illustrare tre opzioni comuni: aggiornamento in sequenza, distribuzione di tipo blu-verde e versione canary.
 
-==== Aggiornamento in sequenza
+#### Aggiornamento in sequenza
 
 In un aggiornamento in sequenza, si distribuiscono nuove istanze di un servizio e queste iniziano subito a ricevere richieste. Quando le nuove istanze diventano disponibili, quelle precedenti vengono rimosse.
 
@@ -74,7 +74,7 @@ Se il servizio esegue un'attività di avvio di lunga durata, è possibile defini
 
 Una problematica degli aggiornamenti in sequenza è rappresentata dal fatto che durante il processo di aggiornamento è in esecuzione e riceve traffico una combinazione di versioni nuove e precedenti. Durante tale periodo, qualsiasi richiesta potrebbe essere indirizzata a una delle due delle versioni. Questo potrebbe causare o meno problemi a seconda dell'ambito delle modifiche tra le due versioni.
 
-==== Distribuzione di tipo blu-verde
+#### Distribuzione di tipo blu-verde
 
 In una distribuzione di tipo blu-verde, si distribuisce la nuova versione insieme alla precedente. Dopo aver convalidato la nuova versione, si trasferisce tutto il traffico contemporaneamente dalla versione precedente alla nuova. Dopo il trasferimento, si monitora l'applicazione per rilevare eventuali problemi. Se si verificano errori, è possibile tornare alla versione precedente. Supponendo che non sussistano problemi, è possibile eliminare la versione precedente.
 
@@ -84,13 +84,13 @@ In Kubernetes, non è necessario effettuare il provisioning di un cluster separa
 
 Un vantaggio delle distribuzioni di tipo blu-verde è che il servizio esegue il trasferimento di tutti i pod contemporaneamente. Dopo l'aggiornamento del servizio, tutte le nuove richieste vengono indirizzate alla nuova versione. Uno svantaggio è che durante l'aggiornamento viene eseguito il doppio dei pod per il servizio, per la versione corrente e la successiva. Se i pod richiedono una grande quantità di risorse di memoria o CPU, potrebbe essere necessario aumentare temporaneamente il numero di istanze del cluster per gestire l'utilizzo delle risorse.
 
-==== Versione canary
+#### Versione canary
 
 Con una versione canary, si implementa una versione aggiornata in un numero ridotto di client. Si monitora quindi il comportamento del nuovo servizio prima di procedere all'implementazione in tutti i client. In questo modo è possibile eseguire un'implementazione lenta in modo controllato, osservare i dati reali e individuare i problemi prima che abbiano un impatto su tutti i clienti.
 
 Una versione canary è più complessa da gestire rispetto a un aggiornamento in sequenza o di tipo blu-verde, perché è necessario indirizzare dinamicamente le richieste a versioni diverse del servizio. In Kubernetes, è possibile configurare un servizio in modo da includere due set di replica (uno per ogni versione) e modificare manualmente i numeri di repliche. Questo approccio presenta tuttavia una granularità piuttosto grossolana a causa del modo in cui Kubernetes bilancia il carico tra i pod. In presenza di un totale di dieci repliche, ad esempio, è possibile spostare il traffico solo in incrementi del 10%. Se si usa una rete mesh di servizi, è possibile usare le relative regole di routing per implementare una strategia di versione canary più sofisticata. Di seguito sono riportate alcune risorse che potrebbero rivelarsi utili.
 
-===== Conclusioni
+##### Conclusioni
 
 Negli ultimi anni, nel settore si è verificato un cambiamento radicale, ossia il passaggio dalla creazione di sistemi di registrazione alla creazione di sistemi di engagement.
 
